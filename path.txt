@@ -1,0 +1,52 @@
+              Prefix Verb   URI Pattern                                       Controller#Action
+             account GET    /account(.:format)                                accounts#edit
+                     PATCH  /account(.:format)                                accounts#update
+                     PUT    /account(.:format)                                accounts#update
+  webhooks_uninstall GET    /webhooks/uninstall(.:format)                     webhooks#uninstall
+                     POST   /webhooks/uninstall(.:format)                     webhooks#uninstall
+        sessions_new GET    /sessions/new(.:format)                           sessions#new
+     sessions_create POST   /sessions/create(.:format)                        sessions#create
+    sessions_destroy GET    /sessions/destroy(.:format)                       sessions#destroy
+     import_products GET    /products/import(.:format)                        products#import
+    product_variants GET    /products/:product_id/variants(.:format)          variants#index
+                     POST   /products/:product_id/variants(.:format)          variants#create
+ new_product_variant GET    /products/:product_id/variants/new(.:format)      variants#new
+edit_product_variant GET    /products/:product_id/variants/:id/edit(.:format) variants#edit
+     product_variant GET    /products/:product_id/variants/:id(.:format)      variants#show
+                     PATCH  /products/:product_id/variants/:id(.:format)      variants#update
+                     PUT    /products/:product_id/variants/:id(.:format)      variants#update
+                     DELETE /products/:product_id/variants/:id(.:format)      variants#destroy
+            products GET    /products(.:format)                               products#index
+                     POST   /products(.:format)                               products#create
+         new_product GET    /products/new(.:format)                           products#new
+        edit_product GET    /products/:id/edit(.:format)                      products#edit
+             product GET    /products/:id(.:format)                           products#show
+                     PATCH  /products/:id(.:format)                           products#update
+                     PUT    /products/:id(.:format)                           products#update
+                     DELETE /products/:id(.:format)                           products#destroy
+       import_orders GET    /orders/import(.:format)                          orders#import
+              orders GET    /orders(.:format)                                 orders#index
+                     POST   /orders(.:format)                                 orders#create
+           new_order GET    /orders/new(.:format)                             orders#new
+          edit_order GET    /orders/:id/edit(.:format)                        orders#edit
+               order GET    /orders/:id(.:format)                             orders#show
+                     PATCH  /orders/:id(.:format)                             orders#update
+                     PUT    /orders/:id(.:format)                             orders#update
+                     DELETE /orders/:id(.:format)                             orders#destroy
+            contests GET    /contests(.:format)                               contests#index
+                     POST   /contests(.:format)                               contests#create
+         new_contest GET    /contests/new(.:format)                           contests#new
+        edit_contest GET    /contests/:id/edit(.:format)                      contests#edit
+             contest GET    /contests/:id(.:format)                           contests#show
+                     PATCH  /contests/:id(.:format)                           contests#update
+                     PUT    /contests/:id(.:format)                           contests#update
+                     DELETE /contests/:id(.:format)                           contests#destroy
+     dashboard_index GET    /dashboard/index(.:format)                        dashboard#index
+      create_contest POST   /create_contest(.:format)                         dashboard#create_contest
+     test_connection GET    /test_connection(.:format)                        dashboard#test_connection
+   shopify_authorize GET    /shopify/authorize(.:format)                      shopify#authorize
+                     POST   /shopify/authorize(.:format)                      shopify#authorize
+     shopify_install GET    /shopify/install(.:format)                        shopify#install
+                     POST   /shopify/install(.:format)                        shopify#install
+     shopify_confirm GET    /shopify/confirm(.:format)                        shopify#confirm
+                root GET    /                                                 dashboard#index
