@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140520122716) do
+ActiveRecord::Schema.define(version: 20150703170504) do
 
   create_table "accounts", force: true do |t|
     t.string   "shopify_account_url"
@@ -76,6 +76,22 @@ ActiveRecord::Schema.define(version: 20140520122716) do
   end
 
   add_index "orders", ["account_id"], name: "index_orders_on_account_id"
+
+  create_table "product_recommendations", force: true do |t|
+    t.string   "product_name"
+    t.string   "recommended_to"
+    t.string   "recommended_product_url"
+    t.string   "recommended_product_image_url"
+    t.string   "recommended_by"
+    t.text     "message"
+    t.integer  "product_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_recommendations", ["account_id"], name: "index_product_recommendations_on_account_id"
+  add_index "product_recommendations", ["product_id"], name: "index_product_recommendations_on_product_id"
 
   create_table "products", force: true do |t|
     t.string   "name"

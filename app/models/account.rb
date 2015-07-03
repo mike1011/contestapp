@@ -6,6 +6,9 @@ class Account < ActiveRecord::Base
   has_many :products, :dependent => :destroy
   has_many :contests, :dependent => :destroy
 
+  has_many :product_recommendations
+  has_many :products, through: :product_recommendations
+
 
 
   def contests_run(start_date, end_date)

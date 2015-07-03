@@ -16,6 +16,8 @@ Contestapp::Application.routes.draw do
   resources :products do
     collection do
       get 'import'
+      get 'recommend'
+      post 'recommend'
     end
     resources :variants
   end

@@ -78,6 +78,16 @@ class ProductsController < ApplicationController
     end
   end
 
+
+ def recommend
+  Rails.logger.info "============RECOMMEND A PRODUCT============"
+  recommendation=ProductRecommendation.new(product_recommendation_params)
+  p recommendation
+  
+   
+ end
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_product
@@ -86,6 +96,10 @@ class ProductsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params
-    params.require(:product).permit(:name, :shopify_product_id, :last_shopify_sync)
+    params.require(:product,:product_recommendation).permit(:name, :shopify_product_id, :last_shopify_sync,:recommended_to,:message)
   end
+  def product_recommendation_params
+    params.require(:product_recommendation).permit(:recommended_to,:message)
+  end
+
 end
