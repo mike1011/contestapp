@@ -1,1 +1,4 @@
-$("#btn_close_recommend_modal").click();
+// $("#btn_close_recommend_modal").click();
+
+$("#mainCarousel").carousel(1);
+$("#mainCarousel").find("[data-slide-number='1']").html("<%= escape_javascript(render(:partial => 'recommend')) %>");

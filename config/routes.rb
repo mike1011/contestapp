@@ -32,6 +32,9 @@ Contestapp::Application.routes.draw do
 
   # Dashboard routes
   get "dashboard/index"
+  get "dashboard/announcements"
+  post "dashboard/announcements"
+  
   post "create_contest" => 'dashboard#create_contest'
   get "test_connection" => 'dashboard#test_connection'
 

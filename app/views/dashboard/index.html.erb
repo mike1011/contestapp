@@ -1,76 +1,129 @@
-<%- model_class = Contest -%>
-<%- content_for :sidebar do -%>
-<h4><%= t('dashboard.sidebar.title') %></h4>
-<% if current_account.can_create_contests? %>
-<p><%= t('dashboard.sidebar.content') %></p>
-<%= form_for @contest, :url => create_contest_path do |f| %>
-<div class="control-group">
-  <%= f.label :name, "Contest Name *"  %>
-  <div class="controls">
-    <%= f.text_field :name, :class => 'text_field', :required => true %>
-  </div>
-</div>
-<div class="control-group">
-  <%= f.label :product_id, "Type *" %>
-  <div class="controls">
-    <select id="contest_product_id" name="contest[product_id]" required="required">
-      <option>Any Product</option>
-      <optgroup label="Specific Product">
-        <%- @products.each do |product| -%>
-        <option value="<%= product.shopify_product_id %>"><%= product.name %></option>
-        <%- end -%>
-      </optgroup>
-    </select>
-  </div>
-</div>
-<div class="control-group">
-  <%= f.label :start_date, "Order Date Range (optional)" %>
-  <div class="controls">
-    <%= f.text_field :start_date, :class => 'text_field' %>
-    <%= f.text_field :end_date, :class => 'text_field' %>
-  </div>
-</div>
-<div class="control-group">
-  <%= f.label :max_results, "Max # (optional)" %>
-  <div class="controls">
-    <%= f.text_field :max_results, :class => 'text_field' %>
-  </div>
-</div>
-<div class="form-actions">
-  <input type="submit" value="Submit" class="btn"/>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-  root_path, :class => 'btn' %>
-</div>
-<!-- End form -->
-<%- end -%>
-<% else %>
-<p> Uh oh!  Looks like you've used up your monthly allotment of Contests!  If you need more, <%= link_to "Click here to upgrade your account", account_path %>.
-<% end %>
-<p>Having trouble?  <a href="<%= test_connection_path %>">Click here to test your connection to Shopify</a>.</p>
-<!-- End sidebar -->
-<%- end -%>
-<h1>Contests</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Criteria</th>
-      <th>Winner</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @contests.each do |contest| %>
-    <tr>
-      <td><%= contest.name %></td>
-      <td><%= contest.criteria %></td>
-      <% if contest.order.present? %>
-      <td>Order <%= link_to contest.order.number, order_path(contest.order) %>, <%= contest.order.first_name %> <%= contest.order.last_name %> (<%= mail_to contest.order.email, contest.order.email %>)</td>
-      <% else %>
-      <td>Error picking winner</td>
-      <% end %>
-      <td><%=l contest.created_at, format: :long %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<!-- main carousel -->
+<div id="main_slider">
+         <div class="carousel slide" id="mainCarousel" data-interval="false">
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+            <div class="active item" data-slide-number="0">
+
+<!-- one row -->
+  <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">
+                <div class="icon">
+                    <div class="image"><span class="fa fa-send btn-lg white"></span></div>
+                    <div class="info">
+                        <h3 class="title">Recommend</h3>
+                        <p>
+                            recommend a product from your store.
+                        </p>
+                        <div class="more">
+                            <a href="<%= recommend_products_path%>" data-remote="true" title="Title Link"><i class="fa fa-plus"></i> Enter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">
+                <div class="icon">
+                    <div class="image"><span class="fa fa-bolt btn-lg white"></span></div>
+                    <div class="info">
+                        <h3 class="title">Announcement</h3>
+                        <p>
+                            create accouncement for new offers,products etc. 
+                        </p>
+                        <div class="more">
+                            <a href="<%= dashboard_announcements_path%>" data-remote="true" title="Title Link"><i class="fa fa-plus"></i> Enter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">
+                <div class="icon">
+                    <div class="image"><span class="fa fa-gift btn-lg white"></span></div>
+                    <div class="info">
+                        <h3 class="title">Discount Codes</h3>
+                        <p>
+                            generate discount codes for your customers
+                        </p>
+                        <div class="more">
+                            <a href="#" title="Title Link"><i class="fa fa-plus"></i> Enter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+            </div>
+        </div>
+
+
+
+<!-- second row -->
+  <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">
+                <div class="icon">
+                    <div class="image"><span class="fa fa-file-o btn-lg white"></span></div>
+                    <div class="info">
+                        <h3 class="title">Feedback Form</h3>
+                        <p>
+                            send feedback form to your customers.
+                        </p>
+                        <div class="more">
+                            <a href="#" title="Title Link"><i class="fa fa-plus"></i> Enter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">
+                <div class="icon">
+                    <div class="image"><span class="fa fa-bar-chart btn-lg white"></span></div>
+                    <div class="info">
+                        <h3 class="title">Analysis</h3>
+                        <p>
+                            analyse orders,sales and other informations.
+                        </p>
+                        <div class="more">
+                            <a href="#" title="Title Link"><i class="fa fa-plus"></i> Enter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">
+                <div class="icon">
+                    <div class="image"><span class="fa fa-flag-o btn-lg white"></span></div>
+                    <div class="info">
+                        <h3 class="title">Survey</h3>
+                        <p>
+                            generate online survey for your store.
+                        </p>
+                        <div class="more">
+                            <a href="#" title="Title Link"><i class="fa fa-plus"></i> Enter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+            </div>
+        </div>
+     </div><!-- data slide 0 ends -->   
+
+     <div class="item" data-slide-number="1">
+
+     </div>
+   </div><!-- carousel inner ends -->
+  </div><!--  mainCarousel ends -->
+</div> <!-- main_slider ends -->    
+

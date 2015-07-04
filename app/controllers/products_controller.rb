@@ -81,9 +81,12 @@ class ProductsController < ApplicationController
 
  def recommend
   Rails.logger.info "============RECOMMEND A PRODUCT============"
-  recommendation=ProductRecommendation.new(product_recommendation_params)
-  p recommendation
-  
+  if request.post?
+      recommendation=PoductRecommendation.new(product_recommendation_params)
+      p recommendation
+   else
+
+   end   
    
  end
 
