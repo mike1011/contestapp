@@ -1,4 +1,4 @@
-Contestapp::Application.routes.draw do
+Shopease::Application.routes.draw do
 
    get "account"=> 'accounts#edit'
    patch "account"=> 'accounts#update'
@@ -34,6 +34,11 @@ Contestapp::Application.routes.draw do
   get "dashboard/index"
   get "dashboard/announcements"
   post "dashboard/announcements"
+
+  get "dashboard/analysis"
+  post "dashboard/analysis"
+
+  
   
   post "create_contest" => 'dashboard#create_contest'
   get "test_connection" => 'dashboard#test_connection'

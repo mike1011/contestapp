@@ -4,6 +4,6 @@ class Product < ActiveRecord::Base
 
 
   has_many :product_recommendations
-  has_many :accounts, through: :product_recommendations
+  has_many :recommended_accounts, through: :product_recommendations, source: :product
 
 end

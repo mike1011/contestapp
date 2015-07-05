@@ -50,6 +50,16 @@ class DashboardController < ApplicationController
     
   end
 
+
+  def analysis
+    if request.post?
+
+    else
+      
+
+    end
+  end
+
   private
 
   def contest_params

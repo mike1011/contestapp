@@ -3,14 +3,16 @@
 <p><%= t('login.sidebar.content') %></p>
 <% end %>
 <h1>Login</h1>
-<form action="<%= shopify_authorize_path %>" method="post">
-    <div>
-        <label for="shop">Shopify Subdomain (<strong>subdomain</strong>.myshopify.com)</label>
+<form action="<%= shopify_authorize_path %>" class="custom_form" method="post">
+        <div class="form-group">
+        <label for="InputName">Shopify Subdomain (<strong>subdomain</strong>.myshopify.com)</label>
+        <div class="input-group col-md-12">
         <input type="text" name="shop" id="shop" required="required"/><br/>
+        </div>
     </div>
     <div>
         <br/>
-        <input type="submit" value="Install"/>
+        <input type="submit" value="Connect me with my Store" class="btn btn-primary"/>
     </div>
 </form>
 <% if Rails.env.development? %>

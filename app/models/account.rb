@@ -7,7 +7,7 @@ class Account < ActiveRecord::Base
   has_many :contests, :dependent => :destroy
 
   has_many :product_recommendations
-  has_many :products, through: :product_recommendations
+  has_many :recommended_products, through: :product_recommendations, source: :account
 
 
 

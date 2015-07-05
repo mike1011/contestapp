@@ -1,4 +1,4 @@
-Contestapp::Application.configure do
+Shopease::Application.configure do
 
    SHOPIFY_API_KEY = ENV["SHOPIFY_API_KEY"]
    SHOPIFY_SHARED_SECRET = ENV["SHOPIFY_SHARED_SECRET"]
