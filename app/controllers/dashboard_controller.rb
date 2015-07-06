@@ -55,7 +55,19 @@ class DashboardController < ApplicationController
     if request.post?
 
     else
-      
+      anaysis_by=params[:analysis_by]
+      case anaysis_by
+          when "Custom" 
+            puts "DAILY" 
+          when "Monthly"
+            puts "Monthly"
+          when "Yearly" 
+            puts "Yearly"   
+          else
+            puts "DAILY DEFAULT========"
+            @products= current_account.products  
+           
+      end
 
     end
   end

@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   has_many :order_items
   belongs_to :account
-
+  has_many :cancelled_orders
   # This method constructs the query based on
   # the passed-in parameters
   def self.candidate_list(params={})

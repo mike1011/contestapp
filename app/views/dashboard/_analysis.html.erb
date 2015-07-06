@@ -25,37 +25,42 @@
    <div class="row">
       <!-- COLUMN ONE -->
       <div class="col-sm-6 col-md-5 ">
-        <h3 class="black">Products</h3>
+        <h3 class="black">Products Sold Today</h3>
      
-         <%= pie_chart({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}) %>
+         <%= pie_chart(@products.group('name').count) %>
+         
 
       </div>
       
       
       <!-- COLUMN TWO -->   
       <div class="col-sm-6 col-md-7">
-          <!-- <canvas id="myChartBar" width="500" height="400"></canvas> -->
-          <%= bar_chart  ({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}),min: 10, max: 100  %>
+           <h3>Visits By Day</h3>
+          <%= bar_chart(@products.map { |m| [m.name, m.id] })%>
      
       </div>
    </div>   
    <div class="row">
       <!-- COLUMN THREE -->
       <div class="col-sm-6 col-md-12 ">
-         <%= line_chart ({"India" => 10, "China" => 5}) %>
+          <h3>Most Selled Category</h3>
+          <%= line_chart @products.group('date(created_at), name').count, discrete: true %>
 
       </div>
    </div>
 
    <div class="row">
       <div class="col-md-12">
+          <h3>Todays Locations of users</h3>
          <%= geo_chart ({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}) %>
       </div>
 
    </div>
    <div class="row">
       <div class="col-md-12">
-         <%= column_chart  ({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}) %>
+          <h3>Non Interested Products</h3>
+         <%= column_chart  (@products.map { |m| [m.name, m.id] }) %>
+
       </div>
 
    </div>

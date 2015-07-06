@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703170504) do
+ActiveRecord::Schema.define(version: 20150706170628) do
 
   create_table "accounts", force: true do |t|
     t.string   "shopify_account_url"
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(version: 20150703170504) do
 
   add_index "accounts", ["email"], name: "index_accounts_on_email"
   add_index "accounts", ["shopify_account_url"], name: "index_accounts_on_shopify_account_url"
+
+  create_table "cancelled_orders", force: true do |t|
+    t.boolean  "cancelled"
+    t.datetime "cancelled_at"
+    t.string   "cancel_reason"
+    t.integer  "order_id"
+    t.string   "location"
+    t.integer  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cancelled_orders", ["order_id"], name: "index_cancelled_orders_on_order_id"
 
   create_table "contests", force: true do |t|
     t.string   "name"

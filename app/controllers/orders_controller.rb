@@ -73,8 +73,13 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if shopify_integration.connect
         # Import Products to ensure we are up to date
+        Rails.logger.info "===========importing Products====started======="
         shopify_integration.import_products
+        Rails.logger.info "===========importing Products====done======="
+
+        Rails.logger.info "===========importing Orders=======started===="
         result = shopify_integration.import_orders
+        Rails.logger.info "===========importing Orders=====done======"
         format.html { redirect_to ({action: :index}), notice: "#{result[:created].to_i} created, #{result[:failed]} failed." }
         format.json { render json: "#{result[:created].to_i} created, #{result[:failed]} failed." }
       else

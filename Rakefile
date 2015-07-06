@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Contestapp::Application.load_tasks
+Shopease::Application.load_tasks
