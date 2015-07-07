@@ -97,7 +97,6 @@ class ShopifyIntegration
 
         # See if we've already imported the order
         order = Order.find_by_shopify_order_id(shopify_order.id)
-DateTime.parse("2015-05-04T14:09:20-04:00")
         unless order.present?
           # If not already imported, create a new order
           order = Order.new(number: shopify_order.name,
@@ -110,7 +109,7 @@ DateTime.parse("2015-05-04T14:09:20-04:00")
                             financial_status: shopify_order.financial_status,
                             account_id: @account_id
                             )
-          p order
+          
           # Iterate through the line_items
           shopify_order.line_items.each do |line_item|
             variant = Variant.find_by_shopify_variant_id(line_item.variant_id)
@@ -222,6 +221,14 @@ DateTime.parse("2015-05-04T14:09:20-04:00")
     # Return the results once no more products are left
     return {created: created, updated: updated, failed: failed}
 
+  end
+
+  def import_customers
+    page=1
+       shopify_customers = ShopifyAPI::Customer.find(:all, params: {limit: 100, page: page})
+       p shopify_customers
+
+    
   end
 
   def setup_webhooks

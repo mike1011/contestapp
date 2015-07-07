@@ -72,6 +72,7 @@ class DashboardController < ApplicationController
     end
   end
 
+
   private
 
   def contest_params

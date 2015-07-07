@@ -52,7 +52,7 @@
                 <% if logged_in? %>
                    <li class="dropdown">
                         <a href="<%= account_path%>" data-toggle="dropdown" class="dropdown-toggle"><%= current_account.shop_owner.capitalize%> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu well">
                             <li>
                               <a href="<%= import_products_path %>">Import Products</a>
                             </li>

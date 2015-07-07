@@ -9,6 +9,16 @@ body{
   
 }
 
+.dropdown-menu li > a {
+    padding:3px;
+
+}
+
+.dropdown-menu li > a:hover {
+    font-weight:bolder;
+
+}
+
 .modal-dialog{
 	max-width:80%;
 	border: 6px solid #000;

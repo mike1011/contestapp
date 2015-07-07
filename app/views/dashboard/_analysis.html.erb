@@ -6,16 +6,16 @@
             -->
          <div id="nav-widget" class="btn-group btn-group-justified black">
             <div class="btn-group">
-               <button type="button" class="btn text-uppercase active"><i class="fa fa-map-marker fa-2x"></i> Daily</button>
+               <a href="#" class="btn text-uppercase active"> Daily</a>
             </div>
             <div class="btn-group">
-               <button type="button" class="btn text-uppercase"><i class="fa fa-bell fa-2x"></i>  Monthly</button>
+               <a href="#" class="btn text-uppercase">  Monthly</a>
             </div>
             <div class="btn-group">
-               <button type="button" class="btn text-uppercase"><i class="fa fa-user fa-2x"></i>  Yearly</button>
+               <a href="#" class="btn text-uppercase">  Yearly</a>
             </div>
             <div class="btn-group">
-               <button type="button" class="btn text-uppercase"><i class="fa fa-cog fa-2x"></i>  Custom</button>
+               <a href="#" class="btn text-uppercase">  Custom</a>
             </div>
          </div>
       </div>
@@ -36,7 +36,7 @@
       <!-- COLUMN TWO -->   
       <div class="col-sm-6 col-md-7">
            <h3>Visits By Day</h3>
-          <%= bar_chart(@products.map { |m| [m.name, m.id] })%>
+          <%= bar_chart(current_account.orders.today.map { |m| [m.first_name, m.id] })%>
      
       </div>
    </div>   

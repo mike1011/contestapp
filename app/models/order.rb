@@ -2,6 +2,10 @@ class Order < ActiveRecord::Base
   has_many :order_items
   belongs_to :account
   has_many :cancelled_orders
+  ##get all orders processed today
+  scope :today, -> { where("created_at >= ?", Time.zone.now.beginning_of_day) }
+  scope :this_month, -> { where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month) }
+
   # This method constructs the query based on
   # the passed-in parameters
   def self.candidate_list(params={})
