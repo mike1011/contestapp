@@ -5,6 +5,21 @@ class Order < ActiveRecord::Base
   ##get all orders processed today
   scope :today, -> { where("created_at >= ?", Time.zone.now.beginning_of_day) }
   scope :this_month, -> { where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month) }
+  ##status of orders
+#   pending: The finances are pending.
+# authorized: The finances have been authorized.
+# partially_paid: The finances have been partially paid.
+# paid: The finances have been paid. (This is the default value.)
+# partially_refunded: The finances have been partially refunded.
+# refunded: The finances have been refunded.
+# voided: The finances have been voided.
+  scope :pending, -> { where(:financial_status => "pending" ) }
+  scope :authorized, -> { where(:financial_status => "authorized" ) }
+  scope :paid, -> { where(:financial_status => "paid" ) }
+  scope :refunded, -> { where(:financial_status => "refunded" ) }
+  scope :voided, -> { where(:financial_status => "voided" ) }
+
+
 
   # This method constructs the query based on
   # the passed-in parameters

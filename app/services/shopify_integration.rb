@@ -94,7 +94,7 @@ class ShopifyIntegration
     while shopify_orders.size > 0
 
       shopify_orders.each do |shopify_order|
-
+      
         # See if we've already imported the order
         order = Order.find_by_shopify_order_id(shopify_order.id)
         unless order.present?
@@ -107,7 +107,10 @@ class ShopifyIntegration
                             order_date: DateTime.parse(shopify_order.created_at),
                             total: shopify_order.total_price,
                             financial_status: shopify_order.financial_status,
-                            account_id: @account_id
+                            account_id: @account_id,
+                            cancel_reason: shopify_order.cancel_reason,
+                            cancelled_at: shopify_order.cancelled_at,
+                            ip_address: shopify_order.client_details.browser_ip
                             )
           
           # Iterate through the line_items
@@ -123,14 +126,6 @@ class ShopifyIntegration
           end
 
           if order.save
-          ##create new entry in cancelled order if order is cancelled
-          if shopify_order.cancelled_at.present?
-            order.cancelled_orders.create(cancelled_at: shopify_order.cancelled_at,
-                                      cancelled: true,
-                                      cancel_reason: shopify_order.cancel_reason,
-                                      location:  shopify_order.location,
-                                      price: shopify_order.total_price)  
-          end  
             created += 1
           else
             failed += 1
