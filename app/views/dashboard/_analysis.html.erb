@@ -5,66 +5,25 @@
             ****** NAVIGATION WIDGET *******
             -->
          <div id="nav-widget" class="btn-group btn-group-justified black">
-            <div class="btn-group">
-               <a href="#" class="btn text-uppercase active"> Daily</a>
+            <div class="btn-group ">
+               <a href="<%= dashboard_analysis_path%>" data-remote="true" class="btn text-uppercase active analysis_navbtn"> Daily</a>
             </div>
-            <div class="btn-group">
-               <a href="#" class="btn text-uppercase">  Monthly</a>
+            <div class="btn-group ">
+               <a href="<%= dashboard_analysis_path(:analysis_by=>"Monthly")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Monthly</a>
             </div>
-            <div class="btn-group">
-               <a href="#" class="btn text-uppercase">  Yearly</a>
+            <div class="btn-group ">
+               <a href="<%= dashboard_analysis_path(:analysis_by=>"Yearly")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Yearly</a>
             </div>
-            <div class="btn-group">
-               <a href="#" class="btn text-uppercase">  Custom</a>
+            <div class="btn-group ">
+               <a href="<%= dashboard_analysis_path(:analysis_by=>"Custom")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Custom</a>
             </div>
          </div>
       </div>
    </div>
    
-   
-   <div class="row">
-      <!-- COLUMN ONE -->
-      <div class="col-sm-6 col-md-5 ">
-        <h3 class="black">Products Sold Today</h3>
-     
-         <%= pie_chart(@products.group('name').count) %>
-         
-
-      </div>
-      
-      
-      <!-- COLUMN TWO -->   
-      <div class="col-sm-6 col-md-7">
-           <h3>Visits By Day</h3>
-          <%= bar_chart(current_account.orders.today.map { |m| [m.first_name, m.id] })%>
-     
-      </div>
-   </div>   
-   <div class="row">
-      <!-- COLUMN THREE -->
-      <div class="col-sm-6 col-md-12 ">
-          <h3>Most Selled Category</h3>
-          <%= line_chart @products.group('date(created_at), name').count, discrete: true %>
-
-      </div>
-   </div>
-
-   <div class="row">
-      <div class="col-md-12">
-          <h3>Todays Locations of users</h3>
-         <%= geo_chart ({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}) %>
-      </div>
-
-   </div>
-   <div class="row">
-      <div class="col-md-12">
-          <h3>Non Interested Products</h3>
-         <%= column_chart  (@products.map { |m| [m.name, m.id] }) %>
-
-      </div>
-
-   </div>
-
+   <div id="analysis_data">
+   <%= render "dashboard/show_graphs" %>
+</div><!--  #analysis_data ends -->
 </div>
 
 
@@ -74,6 +33,13 @@
 
 $(document).ready(function() {
   
+$("a.analysis_navbtn").click(function(){
+$("a.analysis_navbtn").removeClass("active");
+$(this).addClass("active");
+
+});
+
+
 
  var pieData = [
                 {

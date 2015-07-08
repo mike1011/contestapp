@@ -76,6 +76,26 @@ class ShopifyIntegration
     account.email = shop.email
 
     account.save
+    # once you have the account,save shop details as well
+    Rails.logger.info "===========Creating new shop for #{account.shopify_shop_name}==========="
+    account.create_shop(name: shop.name,
+                      owner: shop.shop_owner,
+                      domain: shop.domain,
+                      email: shop.email,
+                      shopify_id:  shop.id,
+                      address: shop.address1,
+                      city: shop.city,
+                      country: shop.country_name,
+                      created_date: DateTime.parse(shop.created_at),
+                      latitude: shop.latitude,
+                      longitude: shop.longitude,
+                      phone: shop.phone,
+                      state: shop.province,
+                      zip: shop.zip,
+                      country_code: shop.country
+                      ) unless account.shop.present?
+    
+
 
 
   end

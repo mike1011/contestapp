@@ -2,9 +2,12 @@ class Order < ActiveRecord::Base
   has_many :order_items
   belongs_to :account
   has_many :cancelled_orders
-  ##get all orders processed today
-  scope :today, -> { where("created_at >= ?", Time.zone.now.beginning_of_day) }
-  scope :this_month, -> { where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month) }
+  ##get all orders processed timely
+  scope :today, -> { where("order_date >= ?", Time.zone.now.beginning_of_day) }
+  scope :this_month, -> { where(:order_date => Time.now.beginning_of_month..Time.now.end_of_month) }
+  scope :in_last_month,-> { where("order_date > ?", 1.month.ago )}
+  scope :in_last_six_months, -> { where("order_date > ?", 6.month.ago )}
+  scope :this_year, -> { where("order_date > ?", 12.month.ago )}
   ##status of orders
 #   pending: The finances are pending.
 # authorized: The finances have been authorized.
