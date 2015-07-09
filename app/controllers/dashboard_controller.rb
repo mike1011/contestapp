@@ -7,8 +7,8 @@ class DashboardController < ApplicationController
     @contest = Contest.new
 
     # Load the Products we want to use for Contests
-    @products = Product.all.order(:name)
-p    ShopifyAPI::CustomerSavedSearch.all#( from: :search, params: {q: "orders_count: >1"})
+    @products = Product.all.order(:name) 
+    ##p ShopifyAPI::CustomerSavedSearch.all#( from: :search, params: {q: "orders_count: >1"})
 
   end
 
@@ -53,35 +53,31 @@ p    ShopifyAPI::CustomerSavedSearch.all#( from: :search, params: {q: "orders_co
 
 
   def analysis
-    if request.post?
+         @products= current_account.products  
+         @orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
+         @order_financial_status=current_account.orders.includes(:order_items).group(:financial_status).order("order_date ASC").count
 
-    else
-      anaysis_by=params[:analysis_by]
-      @title=anaysis_by=="Monthly" ? "This Month's" : anaysis_by=="Yearly" ? "This Year's" : "Today's"
-      case anaysis_by
-          when "Custom" 
-            puts "============Custom===============" 
-          when "Monthly"
-            puts "============Monthly==========="
-            @products= current_account.products  
-            @orders=current_account.orders.this_month.group("DATE(order_date)").order("order_date ASC").count
-          
-          when "Yearly" 
-            puts "==========Yearly=============="  
-            @products= current_account.products    
-             @orders=current_account.orders.this_year.group("DATE(order_date)").order("order_date ASC").count
-           
-          else
-            puts "==========DAILY DEFAULT========"
-            @products= current_account.products  
-            @orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
-            ##other way
-            ##count(:order => 'DATE(order_date) DESC', :group => ["DATE(order_date)"]).each {|u| puts "#{u[0]} -> #{u[1]}" }
-           
-      end
-
-    end
+      
   end
+
+  def download_pdf
+     @products = current_account.products
+     # send_data ReportPdf.new(@products),
+     #           filename: "hiiii.pdf",
+     #           type: "application/pdf"
+
+
+     respond_to do |format|
+       format.html
+       format.pdf do
+         pdf = ReportPdf.new(@products,current_account)
+         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
+       end
+     end
+ 
+  end
+    
+ 
 
 
   private

@@ -6,23 +6,23 @@
             -->
          <div id="nav-widget" class="btn-group btn-group-justified black">
             <div class="btn-group ">
-               <a href="<%= dashboard_analysis_path%>" data-remote="true" class="btn text-uppercase active analysis_navbtn"> Daily</a>
+               <a href="<%= order_analysis_orders_path%>" data-remote="true" class="btn text-uppercase active analysis_navbtn"> Orders</a>
             </div>
             <div class="btn-group ">
-               <a href="<%= dashboard_analysis_path(:analysis_by=>"Monthly")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Monthly</a>
+               <a href="<%= dashboard_analysis_path(:analysis_by=>"Monthly")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Products</a>
             </div>
             <div class="btn-group ">
-               <a href="<%= dashboard_analysis_path(:analysis_by=>"Yearly")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Yearly</a>
+               <a href="<%= dashboard_analysis_path(:analysis_by=>"Yearly")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Customers</a>
             </div>
             <div class="btn-group ">
-               <a href="<%= dashboard_analysis_path(:analysis_by=>"Custom")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Custom</a>
+               <a href="<%= dashboard_analysis_path(:analysis_by=>"Custom")%>" data-remote="true" class="btn text-uppercase analysis_navbtn">  Personal</a>
             </div>
          </div>
       </div>
    </div>
    
    <div id="analysis_data">
-   <%= render "dashboard/show_graphs" %>
+   <%= render "orders/order_analysis" %>
 </div><!--  #analysis_data ends -->
 </div>
 

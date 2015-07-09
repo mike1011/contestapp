@@ -1,0 +1,88 @@
+   <div class="row">
+      <div class="col-md-12 ">
+        <h3 class="black">Today's Orders</h3>
+           
+                    <span>
+                    <ul class=" list-unstyled pull-right" style="margin-top: -29px; width: 200px; margin-right: 10px;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" aria-expanded="false"> More</a>
+                        <ul class="dropdown-menu well">
+                            <li><a href="#"> Montly</a></li>
+                            <li><a href="#"> Yearly</a></li>
+                            <li><a href="<%= download_pdf_path(:format => 'pdf')%>"> Download PDF</a></li>
+                        </ul>
+                    </li>
+                    </ul>
+                    </span>
+                   
+
+         <% if @orders.present?%>
+            <%= pie_chart(@orders) %>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Orders for today"%>
+          </p>  
+          </div>  
+         <%end%>         
+
+      </div>
+    </div><!--  first row ends --> 
+      
+   <div class="row">
+      <div class="col-md-12 ">
+        <h3 class="black"> Order Statuses</h3>
+           
+                    <span>
+                    <ul class=" list-unstyled pull-right" style="margin-top: -29px; width: 200px; margin-right: 10px;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" aria-expanded="false"> More</a>
+                        <ul class="dropdown-menu well">
+                            <li><a href="#"> Paid</a></li>
+                            <li><a href="#"> Authorized</a></li>
+                            <li><a href="#"> Pending</a></li>
+                            <li><a href="<%= download_pdf_path(:format => 'pdf')%>"> Download PDF</a></li>
+                        </ul>
+                    </li>
+                    </ul>
+                    </span>
+              
+
+         <% if @order_financial_status.present?%>
+            <%= column_chart(@order_financial_status) %>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Status"%>
+          </p>  
+          </div>  
+         <%end%>         
+
+      </div>
+    </div>  <!-- second row ends -->
+
+
+   <div class="row">
+      <div class="col-md-12 ">
+          <h3>Most Selled Category</h3>
+          <%= line_chart @products.group('date(created_at), name').count, discrete: true %>
+
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-12">
+          <h3>Todays Locations of users</h3>
+         <%= geo_chart ({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}) %>
+      </div>
+
+   </div>
+   <div class="row">
+      <div class="col-md-12">
+          <h3>Non Interested Products</h3>
+         <%= column_chart  (@products.map { |m| [m.name, m.id] }) %>
+
+      </div>
+
+   </div>
+

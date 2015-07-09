@@ -90,6 +90,37 @@ class OrdersController < ApplicationController
 
   end
 
+ def order_analysis
+
+   anaysis_by=params[:analysis_by]
+      @title=anaysis_by=="Monthly" ? "This Month's" : anaysis_by=="Yearly" ? "This Year's" : "Today's"
+      case anaysis_by
+          when "Custom" 
+            puts "============Custom===============" 
+          when "Monthly"
+            puts "============Monthly==========="
+            @products= current_account.products  
+            @orders=current_account.orders.this_month.group("DATE(order_date)").order("order_date ASC").count
+          
+          when "Yearly" 
+            puts "==========Yearly=============="  
+            @products= current_account.products    
+             @orders=current_account.orders.this_year.group("DATE(order_date)").order("order_date ASC").count
+           
+          else
+            puts "==========DAILY DEFAULT========"
+            @products= current_account.products  
+            @orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
+            @order_financial_status=current_account.orders.includes(:order_items).group(:financial_status).order("order_date ASC").count
+
+            ##other way
+            ##count(:order => 'DATE(order_date) DESC', :group => ["DATE(order_date)"]).each {|u| puts "#{u[0]} -> #{u[1]}" }
+           
+      end
+   
+ end
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_order

@@ -18,6 +18,7 @@ Shopease::Application.routes.draw do
       get 'import'
       get 'recommend'
       post 'recommend'
+      get 'product_analysis'
     end
     resources :variants
   end
@@ -25,6 +26,7 @@ Shopease::Application.routes.draw do
   resources :orders do
     collection do
       get 'import'
+      get 'order_analysis'
     end
   end
 
@@ -38,7 +40,7 @@ Shopease::Application.routes.draw do
   get "dashboard/analysis"
   post "dashboard/analysis"
 
-  
+  get "download_pdf" => 'dashboard#download_pdf'
   
   post "create_contest" => 'dashboard#create_contest'
   get "test_connection" => 'dashboard#test_connection'
