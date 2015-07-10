@@ -1,23 +1,31 @@
    <div class="row">
       <div class="col-md-12 ">
-        <h3 class="black">Today's Orders</h3>
-           
-                    <span>
-                    <ul class=" list-unstyled pull-right" style="margin-top: -29px; width: 200px; margin-right: 10px;">
+        <h3>
+          <span class="pull-right">
+                    <ul class=" list-unstyled pull-right" style="margin-right: 50px;">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" aria-expanded="false"> More</a>
-                        <ul class="dropdown-menu well">
+                        <a href="#" class="dropdown-toggle menu-item label label-success btn" data-toggle="dropdown" aria-expanded="false"> More</a>
+                        <ul class="dropdown-menu well" style="margin-left: -122px;">
                             <li><a href="#"> Montly</a></li>
                             <li><a href="#"> Yearly</a></li>
-                            <li><a href="<%= download_pdf_path(:format => 'pdf')%>"> Download PDF</a></li>
+                            <% if @orders.present?%>
+                              <li>
+                                <a href="<%= download_pdf_path(:format => 'pdf')%>"> Download PDF</a>
+                              </li>
+                            <%end%>
                         </ul>
                     </li>
                     </ul>
-                    </span>
+
+          </span> 
+
+
+
+          Today's Orders </h3>
                    
 
          <% if @orders.present?%>
-            <%= pie_chart(@orders) %>
+            <%= pie_chart(@todays_orders) %>
          <%else%>
          <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
           <p class="text-center text-danger pad10">
@@ -31,22 +39,30 @@
       
    <div class="row">
       <div class="col-md-12 ">
-        <h3 class="black"> Order Statuses</h3>
-           
-                    <span>
-                    <ul class=" list-unstyled pull-right" style="margin-top: -29px; width: 200px; margin-right: 10px;">
+
+                <h3>
+          <span class="pull-right">
+                    <ul class=" list-unstyled pull-right" style="margin-right: 50px;">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" aria-expanded="false"> More</a>
-                        <ul class="dropdown-menu well">
+                        <a href="#" class="dropdown-toggle menu-item label label-success btn" data-toggle="dropdown" aria-expanded="false"> More</a>
+                        <ul class="dropdown-menu well" style="margin-left: -122px;">
                             <li><a href="#"> Paid</a></li>
                             <li><a href="#"> Authorized</a></li>
                             <li><a href="#"> Pending</a></li>
-                            <li><a href="<%= download_pdf_path(:format => 'pdf')%>"> Download PDF</a></li>
+                            <% if @order_financial_status.present?%>
+                              <li>
+                                <a href="<%= download_pdf_path(:format => 'pdf')%>"> Download PDF</a>
+                              </li>
+                            <%end%>  
                         </ul>
                     </li>
                     </ul>
-                    </span>
-              
+
+          </span> 
+
+
+
+          Order Statuses</h3>
 
          <% if @order_financial_status.present?%>
             <%= column_chart(@order_financial_status) %>
@@ -64,8 +80,8 @@
 
    <div class="row">
       <div class="col-md-12 ">
-          <h3>Most Selled Category</h3>
-          <%= line_chart @products.group('date(created_at), name').count, discrete: true %>
+          <h3>Products ordered today</h3>
+          <%= column_chart @ordered_products, colors: ["#{rand(10..1000)}", "#999"]  %>
 
       </div>
    </div>

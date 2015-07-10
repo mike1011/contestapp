@@ -1,7 +1,6 @@
 class Order < ActiveRecord::Base
-  has_many :order_items
+  has_many :order_items, :dependent => :destroy
   belongs_to :account
-  has_many :cancelled_orders
   ##get all orders processed timely
   scope :today, -> { where("order_date >= ?", Time.zone.now.beginning_of_day) }
   scope :this_month, -> { where(:order_date => Time.now.beginning_of_month..Time.now.end_of_month) }

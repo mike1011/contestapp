@@ -54,9 +54,9 @@ class DashboardController < ApplicationController
 
   def analysis
          @products= current_account.products  
-         @orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
-         @order_financial_status=current_account.orders.includes(:order_items).group(:financial_status).order("order_date ASC").count
-
+         @todays_orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
+         @order_financial_status=current_account.orders.includes(:order_items).today.group(:financial_status).order("order_date ASC").count
+         @ordered_products=current_account.orders.includes(:order_items).today.group("order_items.name").order("order_date ASC").count
       
   end
 

@@ -141,7 +141,11 @@ class ShopifyIntegration
                                       shopify_product_id: line_item.product_id,
                                       shopify_variant_id: line_item.id,
                                       quantity:  line_item.quantity,
-                                      unit_price: line_item.price)
+                                      unit_price: line_item.price,
+                                      title: line_item.title,
+                                      name: line_item.name,
+                                      vendor: line_item.vendor
+                                      )
             end
           end
 
