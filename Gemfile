@@ -14,6 +14,13 @@ end
 gem "chartkick"
 gem 'prawn-rails'
 
+
+#added for new offers having image,video
+gem "paperclip" #, "3.5.1"
+gem 'aws-sdk', '< 2.0'
+gem "paperclip-ffmpeg"
+gem 'rmagick'
+
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   gem "sqlite3"
