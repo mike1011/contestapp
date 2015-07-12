@@ -1,0 +1,214 @@
+
+           <%= form_for(NewOffer.new,url:recommend_products_path,:html=>{:class=>"col-md-8 col-md-offset-2 pad10"},method:'POST',remote:true) do |f|%>		
+                  <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="InputName">Offer Name</label>
+                    <div class="input-group col-md-12">
+                      <%= f.text_field(:name,:class=>"form-control",:placeholder=>"Enter 5 emails",:required=>true)%>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputMessage">Tell more about the offer</label>
+                    <div class="input-group">
+                         <%= f.text_area(:message,:class=>"form-control",:placeholder=>"Enter a message",:rows=>4,:cols=>86,:required=>true)%>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputMessage">Offer Start/End DateTime</label>
+                    <div class="input-group">
+                         <%= f.text_field :start_datetime,:required=>true%>
+                         <%= f.text_field :end_datetime,:required=>true%>
+                    </div>
+                    <p id="end_datetime_error" class="text-info">End DateTime must be greater than Start DateTime</p>
+                </div>
+                 <div class="form-group" style="border: 1px solid #ccc;">
+                    <div class="fileUpload btn">
+                      <span><i class="fa fa-picture-o fa-lg" style="color: #62b66b; font-size: 2em;"></i> Add Image</span>
+                      <input type="file" id="new_offer_image" class="upload" name="new_offer[image]" accept="image/*" />
+                  </div>
+                    
+                </div>
+
+                <div class="form-group">
+                 <ul class=" list-unstyled" id="preview_image">
+                </div>   
+                
+                 <div class="form-group" style="border: 1px solid #ccc;">
+                    <div class="fileUpload btn">
+                      <span><i class="fa fa-film fa-lg" style="color: #62b66b; font-size: 2em;"></i> Add Offer Video</span>
+                      <input type="file" id="new_offer_video" class="upload" name="new_offer[video]" accept="video/*"/>
+                  </div>
+                    
+                </div> 
+
+
+                <div class="form-group">
+                 <ul class=" list-unstyled" id="preview_video">
+                </div>  
+                 
+                 <div class="form-group">
+                   <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info">
+                 <a class="btn btn-danger " href="<%= root_url%>" role="button" data-slide="prev">Back</a>
+               </div>
+            </div>
+                <%end%>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+var startDate;
+$('#new_offer_start_datetime').datetimepicker({
+                     timepicker:true,
+                     closeOnDateSelect:false,
+                     closeOnTimeSelect: true,
+                     initTime: true,
+                     theme:'dark',
+                     format: 'd-m-Y H:m',
+                     minDate: 0,
+                     roundTime: 'ceil',
+                     onChangeDateTime: function(dp,$input){
+                               startDate = $("#new_offer_start_datetime").val();
+                                                           },
+                     onClose: function(current_time, $input){
+                            var endDate = $("#new_offer_end_datetime").val();
+                            if(startDate>endDate){
+                              $("#end_datetime_error").html("End DateTime must be greater than Start DateTime").toggle();
+                              $("#new_offer_end_datetime").val(" ");
+                             }
+             }                                                           
+                                                           });
+
+
+ $("#new_offer_end_datetime").datetimepicker({
+                     timepicker:true,
+                     closeOnDateSelect:false,
+                     closeOnTimeSelect: true,
+                     initTime: true,
+                     theme:'dark',
+                     format: 'd-m-Y H:m',
+                     onClose: function(current_time, $input){
+                            var endDate = $("#new_offer_end_datetime").val();
+                            if(startDate>endDate){
+                              $("#end_datetime_error").html("End DateTime must be greater than Start DateTime").toggle();
+                              $("#new_offer_end_datetime").val(" ");
+                             }
+             }
+              });
+
+$("#new_offer_image").change(function(evt){
+      $("#new_offer_image").parent().css({"color": "#444 !mportant;"});
+   //remove the image onchange always
+   $('#preview_image').html(" ");
+   //remove the image onchange always
+   //===============check file type and filter
+   
+   var ext = $('#new_offer_image').val().split('.').pop().toLowerCase();
+   if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'tiff', 'bmp']) == -1){
+      $("#preview_image").html("<li class='text-danger'><p class='text-danger' style='margin-top:14px;' >This is not an Image file</p></li>");   
+      $('#new_offer_image').val("");
+      return false;
+   }
+   var file = $('#new_offer_image')[0].files[0];
+   if (file.size && file.size > 1048576 * 2) {
+     $("#preview_image").html("<li class='text-danger'><p class='text-danger' style='margin-top:14px;' >File size must be within 2 Mb or below</p></li>"); 
+      $('#new_offer_image').val("");
+      return false;
+   }
+   
+   // var numFiles = $('#new_offer_image')[0].files.length;
+   // if (numFiles > 5) {
+   //  $(".text-danger_err").remove();
+   //  $("#preview_image").html("<li class='text-danger'><p class='text-danger' style='margin-top:14px;' >Only 5 images can be uploaded at a time</p></li>");       
+   //    $('#new_offer_image').val("");
+    
+   //    return false;
+   // }
+   var files = evt.target.files; // FileList object
+   // Loop through the FileList and render image files as thumbnails.
+   //referred this-http://stackoverflow.com/questions/19816705/javascript-jquery-size-and-dimension-of-uploaded-image-file
+   //initialize a url variable to be used to loop through images using image.onload
+   var _URL = window.URL || window.webkitURL;
+   for (x = 0; x < files.length; x = x + 1) {
+      var file = files[x];
+      (function(file) {
+         var reader = new FileReader();
+         var image = new Image();
+         reader.readAsDataURL(file);
+         image.onload = function() {
+         imgSize = Math.round(file.size / 1024);
+               //print the image width/height to verify that loop is working for all images in array 
+              // console.log("Size: " + imgSize + "KB\nWidth: " + image.width + "\nHeight: " + image.height);
+               //show preview of only those images which are atleast 200x200 or greater
+    if (image.width >= 500 && image.height >= 500){
+           //$(".text-danger").remove();           
+           // $('#list_images').append('<li class="thumbnail" style="margin: 5px;width:160px;"><img class="thumb" src="' + image.src + '"><p class="box"><span style="font-weight: bolder; font-size: larger;">' + file.name + '</span><span class="text-danger pull-right" style="font-size: 10px;">' + image.width + 'x' +image.height + '| ' + imgSize + '</span></p></li>');  
+         console.log("Size:" + imgSize + "|Width:" + image.width + "|Height:" + image.height);
+         $("#preview_image").append('<li class="box">'+
+            '<span class="preview"><img class="img-responsive" src="'+image.src+'">'+
+             '<p class="name text-info"><strong>'+file.name+'</strong>'+
+              '<span class="size text-info pull-right"><small>'+image.width+'x'+image.height+'|'+imgSize+'KB|'+file.type.split('/').pop().toLowerCase()+'</small></span></span>'+
+              '</p>'+
+              '</li>');
+         $('#new_offer_image').attr({value: ''}); 
+          
+             //var len = $("ul#preview_image").children().size();
+             // $("#show_error_shop_new_shop_images").html("<span class='text-success'><small>"+len+" files Selected</small></span>");
+             return false;
+                } else {
+                 $("#preview_image").html("<li class='text-danger'><p class='text-danger' style='margin-top:14px;' >Image must be atleast 500x500 (widthxheight) </p></li>"); 
+                   $('#shop_images').attr({value: ''}); 
+                  return false;
+                 }
+            } //onload ends
+         image.src = _URL.createObjectURL(file);
+         //loop again to next item by passing file    
+      })(file);
+   }
+}); //onchange method ends
+
+
+
+
+//for  video
+$("#new_offer_video").change(function(event){
+              //remove red color by submitting using jquery.validate
+             $("#new_offer_video").parent().css({"color": "#444 !mportant;"});
+             //remove the image onchange always
+             $('#preview_video').html(" ");
+             
+       //check file type
+       var ext = $('#new_offer_video').val().split('.').pop().toLowerCase();
+       console.log("extentsion is :"+ext);
+       if($.inArray(ext, ['mp4','flv','webm','avi','ogv','3gp','mov','rm','swf','wmv']) == -1) {
+            $("#preview_video").html("<li class='col-md-12 text-danger'><p class='text-danger' style='margin-top:14px;' >This is not Video file</p></li>");
+           //show no files selected
+           $('#new_offer_video').val("");
+               return false;
+           }
+ //check file size
+    var file = $('#new_offer_video')[0].files[0];
+    console.log("size is :"+file.size);
+   if (file.size && file.size > 26214400) {
+          $("#preview_video").html("<li class='col-md-12 text-danger'><p class='text-danger' style='margin-top:14px;' >Video size must be within 25 Mb or below</p></li>");      
+          //show no files selected
+           $('#new_offer_video').val("");
+               return false;   
+             }
+        
+//preview video
+ var video_size = Math.round($("#new_offer_video")[0].files[0]['size']/1048576);
+ var video_extention=$('#new_offer_video').val().split('.').pop().toLowerCase();
+         $("#preview_video").append('<li class="box">'+
+            '<span class="preview">'+
+             '<p class="name text-info"><strong>'+$("#new_offer_video")[0].files[0]['name']+'</strong>'+
+             '<span class="size text-info pull-right"><small>'+video_extention+'|'+video_size+'MB</small></span>'+
+              '</p></span>'+
+              '</li>');
+     });//method ends
+
+
+})//document ends
+
+</script>

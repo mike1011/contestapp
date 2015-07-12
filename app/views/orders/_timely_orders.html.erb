@@ -1,0 +1,36 @@
+        <h3>
+          <span class="pull-right">
+                  <ul class=" list-unstyled pull-right" style="margin-right: 50px;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle menu-item label label-success btn" data-toggle="dropdown" aria-expanded="false"> <%= @timely_orders_title_selected=="Month" ? "Month" : @timely_orders_title_selected=="Year" ? "Year" : "All" %> </a>
+                        <ul class="dropdown-menu well" style="margin-left: -122px;">
+                          <li><a href="<%= timely_orders_orders_path(:show_by=>'Today',:type=>"Timely")%>" data-remote="true"> Today</a></li>
+                            <li><a href="<%= timely_orders_orders_path(:show_by=>'Month',:type=>"Timely")%>" data-remote="true"> Montly</a></li>
+                            <li><a href="<%= timely_orders_orders_path(:show_by=>'Year',:type=>"Timely")%>" data-remote="true"> Yearly</a></li>
+                            <% if @timely_orders.present?%>
+                              <li>
+                                <a href="<%= download_pdf_path(:format => 'pdf',:type=>"Timely")%>"> Download PDF</a>
+                              </li>
+                            <%end%>
+                        </ul>
+                    </li>
+                    </ul>
+
+          </span> 
+
+       
+
+
+          <%= @timely_orders_title_selected=="Month" ? "Month" : @timely_orders_title_selected=="Year" ? "Year" : "All" %> Orders </h3>
+          <p>Review Orders generated Date-wise</p>
+                   
+
+         <% if @timely_orders.present?%>
+            <%= pie_chart(@timely_orders, id: "timely_orders_chart") %>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Orders"%>
+          </p>  
+          </div>  
+         <%end%>  

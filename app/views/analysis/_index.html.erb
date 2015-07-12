@@ -1,0 +1,33 @@
+   <div class="row">
+      <div class="col-md-12" id="timely_orders">
+        <%= render "orders/timely_orders"%>        
+
+    </div>
+    </div><!--  first row ends --> 
+      
+   <div class="row">
+      <div class="col-md-12 " id="order_statuses">
+        <%= render "orders/order_statuses"%>     
+
+        
+
+      </div>
+    </div>  <!-- second row ends -->
+
+
+   <div class="row">
+      <div class="col-md-12 " id="ordered_products">
+        <%= render "orders/ordered_products"%>   
+         
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-12">
+          <h3>Todays Locations of users</h3>
+         <%= geo_chart ({"India" => 10, "China" => 5, "USA" => 25, "Canada" => 50}) %>
+      </div>
+
+   </div>
+
+

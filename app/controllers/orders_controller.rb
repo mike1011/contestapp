@@ -90,7 +90,7 @@ class OrdersController < ApplicationController
 
   end
 
- def order_analysis
+ def order_statuses
 
    anaysis_by=params[:analysis_by]
       @title=anaysis_by=="Monthly" ? "This Month's" : anaysis_by=="Yearly" ? "This Year's" : "Today's"
@@ -119,6 +119,78 @@ class OrdersController < ApplicationController
       end
    
  end
+
+
+  def timely_orders
+    type=params[:type]
+    @timely_orders_title_selected=params[:show_by]
+    case type
+      when "Timely"
+            case @timely_orders_title_selected
+              when "Month"
+                Rails.logger.info "========Montly=============="
+                 @timely_orders=current_account.orders.this_month.group("DATE(order_date)").order("order_date ASC").count
+              when "Year"
+                Rails.logger.info "=========Yearly============="
+                 @timely_orders=current_account.orders.this_year.group("DATE(order_date)").order("order_date ASC").count
+              else
+                Rails.logger.info "=========Today============="
+                 @timely_orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
+              end
+       respond_to do |format|       
+        format.js {render 'orders/timely_orders.js'}     
+       end 
+      when "Status"
+             case @timely_orders_title_selected
+              when "Paid" 
+                Rails.logger.info "============Paid=============="
+                 @order_financial_status=current_account.orders.paid.includes(:order_items).group(:financial_status).order("order_date ASC").count
+
+              when "Authorized"  
+                Rails.logger.info "==============Authorized==========="
+                 @order_financial_status=current_account.orders.authorized.includes(:order_items).group(:financial_status).order("order_date ASC").count
+
+              when "Pending"
+                Rails.logger.info "========= Pending============"
+                 @order_financial_status=current_account.orders.pending.includes(:order_items).group(:financial_status).order("order_date ASC").count
+
+              else
+                 Rails.logger.info "========All orders statuses==========="
+                  @order_financial_status=current_account.orders.includes(:order_items).group(:financial_status).order("order_date ASC").count
+
+              end
+        respond_to do |format|         
+          format.js {render 'orders/order_statuses.js'}              
+        end
+      when "Ordered_Products"
+             case @timely_orders_title_selected
+              when "Today" 
+                Rails.logger.info "============Today Ordered_Products=============="
+                 @ordered_products=current_account.orders.today.includes(:order_items).group("order_items.name").order("order_date ASC").count
+
+              when "Month"  
+                Rails.logger.info "==============Month Ordered_Products==========="
+                 @ordered_products=current_account.orders.this_month.includes(:order_items).group("order_items.name").order("order_date ASC").count
+
+              when "Year"
+                Rails.logger.info "========= Year Ordered_Products============"
+                 @ordered_products=current_account.orders.this_year.includes(:order_items).group("order_items.name").order("order_date ASC").count
+
+              else
+                 Rails.logger.info "========All Ordered_Products==========="
+                  @ordered_products=current_account.orders.includes(:order_items).group("order_items.name").order("order_date ASC").count
+
+              end
+        respond_to do |format|         
+          format.js {render 'orders/ordered_products.js'}              
+        end        
+      else
+             
+      end                
+
+
+
+  end
 
 
   private

@@ -1,0 +1,35 @@
+        <h3>
+          <span class="pull-right">
+                  <ul class=" list-unstyled pull-right" style="margin-right: 50px;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle menu-item label label-success btn" data-toggle="dropdown" aria-expanded="false"> <%= @timely_orders_title_selected=="Month" ? "Month" : @timely_orders_title_selected=="Year" ? "Year" : "All" %> </a>
+                        <ul class="dropdown-menu well" style="margin-left: -122px;">
+                          <li><a href="<%= timely_orders_orders_path(:show_by=>'Today',:type=>"Ordered_Products")%>" data-remote="true"> Today</a></li>
+                            <li><a href="<%= timely_orders_orders_path(:show_by=>'Month',:type=>"Ordered_Products")%>" data-remote="true"> Montly</a></li>
+                            <li><a href="<%= timely_orders_orders_path(:show_by=>'Year',:type=>"Ordered_Products")%>" data-remote="true"> Yearly</a></li>
+                            <% if @ordered_products.present?%>
+                              <li>
+                                <a href="<%= download_pdf_path(:format => 'pdf',:type=>"Timely")%>"> Download PDF</a>
+                              </li>
+                            <%end%>
+                        </ul>
+                    </li>
+                    </ul>
+
+          </span> 
+
+       
+
+
+          <%= @timely_orders_title_selected=="Month" ? "Month" : @timely_orders_title_selected=="Year" ? "Year" : "All" %> Ordered Products </h3>
+            <p>Review Ordered Products</p>       
+
+         <% if @ordered_products.present?%>
+            <%= column_chart @ordered_products, id: "ordered_products_chart" , library: {hAxis: {title: "Name of the Product"}, vAxis: {title: "Number of Orders"}},colors: ["#{rand(200..1000)}", "#999"] %>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Products"%>
+          </p>  
+          </div>  
+         <%end%>  

@@ -1,0 +1,58 @@
+   <div class="row">
+      <div class="col-md-12" >
+        <h3>All Products</h3>
+         <% if @all_products.present?%>
+            <%= column_chart @all_products, id: "all_products_chart" , library: {hAxis: {title: "Name of the Product"}, vAxis: {title: "Number of Orders"}},colors: ["#{rand(200..1000)}", "#999"] %>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Products"%>
+          </p>  
+          </div>  
+         <%end%>
+
+    </div><!--  first row ends --> 
+ </div>   
+ 
+
+    <div class="row">
+      <div class="col-md-12" >
+        <h3>All Ordered Products</h3>
+         <% if @ordered_products.present?%>
+            <ol class="list-styled" style="max-height: 500px; overflow-x: auto; background: snow none repeat scroll 0% 0%;">
+              <% @ordered_products.each do |p|%>
+              <li class="pad10"><%= p%></li>
+              <%end%>
+            </ol>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Products"%>
+          </p>  
+          </div>  
+         <%end%>
+
+    </div><!--  Second row ends --> 
+ </div>   
+
+
+    <div class="row">
+      <div class="col-md-12" >
+        <h3>All non-ordered Products</h3>
+         <% if @non_ordered_products.present?%>
+            <ol class="list-styled" style="max-height: 500px; overflow-x: auto; background: snow none repeat scroll 0% 0%;">
+              <% @non_ordered_products.each do |p|%>
+              <li class="pad10"><%= p%></li>
+              <%end%>
+            </ol>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Products"%>
+          </p>  
+          </div>  
+         <%end%>
+
+    </div><!--  Second row ends --> 
+ </div>   
+ 

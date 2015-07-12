@@ -1,0 +1,35 @@
+        <h3>
+          <span class="pull-right">
+                  <ul class=" list-unstyled pull-right" style="margin-right: 50px;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle menu-item label label-success btn" data-toggle="dropdown" aria-expanded="false"> <%= @timely_orders_title_selected=="Paid" ? "Paid" : @timely_orders_title_selected=="Authorized" ? "Authorized" : @timely_orders_title_selected=="Pending" ? "Pending" : "All Status" %> </a>
+                        <ul class="dropdown-menu well" style="margin-left: -122px;">
+                          <li><a href="<%= timely_orders_orders_path(:show_by=>'Paid',:type=>"Status")%>" data-remote="true"> Paid</a></li>
+                            <li><a href="<%= timely_orders_orders_path(:show_by=>'Authorized',:type=>"Status")%>" data-remote="true"> Authorized</a></li>
+                            <li><a href="<%= timely_orders_orders_path(:show_by=>'Pending',:type=>"Status")%>" data-remote="true"> Pending</a></li>
+                            <% if @order_financial_status.present?%>
+                              <li>
+                                <a href="<%= download_pdf_path(:format => 'pdf',:type=>"Timely")%>"> Download PDF</a>
+                              </li>
+                            <%end%>
+                        </ul>
+                    </li>
+                    </ul>
+
+          </span> 
+
+
+
+          <%= @timely_orders_title_selected=="Paid" ? "Paid" : @timely_orders_title_selected=="Authorized" ? "Authorized" : @timely_orders_title_selected=="Pending" ? "Pending" : "All" %>  Orders</h3>
+          <p>Review Orders Status</p>
+                   
+
+         <% if @order_financial_status.present?%>
+            <%= column_chart @order_financial_status, id: "order_financial_status_chart" , library: {hAxis: {title: "Order Status"}, vAxis: {title: "Number of Orders"}},colors: ["#{rand(200..1000)}", "#999"]  %>
+         <%else%>
+         <div style="background: none repeat scroll 0% 0% snow; height: 100px;"> 
+          <p class="text-center text-danger pad10">
+            <%= "No Orders"%>
+          </p>  
+          </div>  
+         <%end%>  

@@ -52,14 +52,6 @@ class DashboardController < ApplicationController
   end
 
 
-  def analysis
-         @products= current_account.products  
-         @todays_orders=current_account.orders.today.group("DATE(order_date)").order("order_date ASC").count
-         @order_financial_status=current_account.orders.includes(:order_items).today.group(:financial_status).order("order_date ASC").count
-         @ordered_products=current_account.orders.includes(:order_items).today.group("order_items.name").order("order_date ASC").count
-      
-  end
-
   def download_pdf
      @products = current_account.products
      # send_data ReportPdf.new(@products),

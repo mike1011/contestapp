@@ -92,6 +92,17 @@ class ProductsController < ApplicationController
  end
 
 
+ def analysis
+  ##@all_products= current_account.products.group(:name).count
+ all_orders=current_account.orders.includes(:order_items).group("order_items.title").count
+  @all_products=all_orders.merge(Hash[current_account.products.collect { |v| [v.name,"0"]  }]).merge(all_orders)
+ 
+
+  @non_ordered_products=Product.pluck(:name).uniq - current_account.orders.includes(:order_items).pluck("order_items.title").uniq
+  @ordered_products=current_account.orders.includes(:order_items).pluck("order_items.title").uniq  
+  
+ end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_product

@@ -27,55 +27,65 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+     <%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
     <%= javascript_include_tag "application" %>
   </head>
   <body>
-<nav id="myNavbar" class="navbar navbar-default navbar-inverse " role="navigation">
+
+<nav class="navbar navbar-default navbar-static-top navbar-inverse ">
+  <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><%= logged_in? ? current_account.shopify_account_url.capitalize : "Shopease"%></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="nav navbar-nav">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><strong><%= logged_in? ? current_account.shopify_shop_name.capitalize : "Shopease"%></strong></a>
+         <ul class="nav navbar-nav hidden-sm hidden-xs">
                 <li class="active"><a href="<%= root_url%>" >Home</a></li>
                 <li><a href="<%= root_url%>" target="_blank">About us</a></li>
-               <li><a href="<%= root_url%>" target="_blank">Contact us</a></li>   
-                <% if logged_in? %>
-                   <li class="dropdown">
-                        <a href="<%= account_path%>" data-toggle="dropdown" class="dropdown-toggle"><%= current_account.shop_owner.capitalize%> <b class="caret"></b></a>
-                        <ul class="dropdown-menu well">
-                            <li>
-                              <a href="<%= import_products_path %>">Import Products</a>
-                            </li>
-                           <li>
-                              <a href="<%= products_path %>">View Products</a>
-                            </li>  
-                            <li>
-                              <a href="<%= import_orders_path %>">Import Orders</a>
-                            </li>
-                             <li>
-                              <a href="<%= orders_path %>">View Orders</a>
-                            </li>  
-                            <li class="divider"></li>
-                            <li><%= link_to "Logout", sessions_destroy_path %>
-                        </ul>
-                    </li>
-                 
-                <%end%>  
-                    
-            </ul>
-        </div>
+               <li><a href="<%= root_url%>" target="_blank">Contact us</a></li> 
+         </ul>      
     </div>
-</nav>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <% if logged_in? %>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://<%= current_account.shopify_account_url%>" target="_blank">Visit Shop</a></li>
+        <li class="dropdown ">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <%= current_account.shop_owner.capitalize%>
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu well" role="menu">
+              <!-- <li class="dropdown-header">SETTINGS</li> -->
+               <li>
+                  <a href="<%= import_products_path %>">Import Products</a>
+                </li>
+               <li>
+                  <a href="<%= products_path %>">View Products</a>
+                </li>  
+                <li>
+                  <a href="<%= import_orders_path %>">Import Orders</a>
+                </li>
+                 <li>
+                  <a href="<%= orders_path %>">View Orders</a>
+                </li>  
+                <li class="divider"></li>
+                <li class="visible-sm visible-xs"><a href="<%= root_url%>" target="_blank">About us</a></li>
+               <li class="visible-sm visible-xs"><a href="<%= root_url%>" target="_blank">Contact us</a></li> 
+                <li class="divider"></li>
+                <li><%= link_to "Logout", sessions_destroy_path %>
+                </li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+      <%end%>
+    </div><!-- /.container-fluid -->
+  </nav>
 
 
       <div class="container container-box black">

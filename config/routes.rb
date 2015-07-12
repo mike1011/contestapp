@@ -1,5 +1,11 @@
 Shopease::Application.routes.draw do
 
+
+
+resources :analysis do
+
+end
+
    get "account"=> 'accounts#edit'
    patch "account"=> 'accounts#update'
    put "account"=> 'accounts#update'
@@ -18,7 +24,7 @@ Shopease::Application.routes.draw do
       get 'import'
       get 'recommend'
       post 'recommend'
-      get 'product_analysis'
+      get 'analysis'
     end
     resources :variants
   end
@@ -26,7 +32,8 @@ Shopease::Application.routes.draw do
   resources :orders do
     collection do
       get 'import'
-      get 'order_analysis'
+      get 'timely_orders'
+      get 'order_statuses'
     end
   end
 
@@ -36,9 +43,6 @@ Shopease::Application.routes.draw do
   get "dashboard/index"
   get "dashboard/announcements"
   post "dashboard/announcements"
-
-  get "dashboard/analysis"
-  post "dashboard/analysis"
 
   get "download_pdf" => 'dashboard#download_pdf'
   

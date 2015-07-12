@@ -24,4 +24,15 @@ class ApplicationController < ActionController::Base
     @_current_account ||= session[:current_account_id] &&
       Account.find_by(id: session[:current_account_id])
   end
+
+ def show_under_construction_page
+  return render "shared/under_construction"   
+ end
+
+ def show_coming_soon_page
+  return render "shared/coming_soon"
+   
+ end
+
+
 end

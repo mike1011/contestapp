@@ -1,0 +1,8 @@
+development:
+  bucket: mildsipdevelopment
+  access_key_id: AKIAJYGSABGC6LPMCLXQ
+  secret_access_key: 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
+production:
+  bucket: mildsipproduction
+  access_key_id: AKIAJYGSABGC6LPMCLXQ
+  secret_access_key: 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
