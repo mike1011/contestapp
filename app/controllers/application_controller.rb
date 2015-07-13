@@ -30,7 +30,14 @@ class ApplicationController < ActionController::Base
  end
 
  def show_coming_soon_page
-  return render "shared/coming_soon"
+  if request.xhr?
+    respond_to do |format|
+      format.js { render "shared/coming_soon"}
+      flash.now[:notice] = "This page is under construction" 
+    end    
+  else
+    return render "shared/coming_soon"
+  end  
    
  end
 

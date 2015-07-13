@@ -11,6 +11,18 @@ class AnalysisController < ApplicationController
       
   end
 
+
+  def customer_analysis
+    show_coming_soon_page
+
+    
+  end
+
+  def personal_analysis
+    show_coming_soon_page
+    
+  end
+
   def show
   end
 end

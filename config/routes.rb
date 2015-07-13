@@ -3,6 +3,10 @@ Shopease::Application.routes.draw do
 
 
 resources :analysis do
+  collection do
+    get "customer_analysis"
+    get "personal_analysis"
+  end
 
 end
 
