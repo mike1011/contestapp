@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   if request.xhr?
     respond_to do |format|
       format.js { render "shared/coming_soon"}
-      flash.now[:notice] = "This page is under construction" 
+      flash.now[:error] = "This page is under construction" 
     end    
   else
     return render "shared/coming_soon"
