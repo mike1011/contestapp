@@ -9,8 +9,6 @@ div.announcements-tab-container{
   border-radius: 4px;
   -moz-border-radius: 4px;
   border:1px solid #ddd;
-  margin-top: 20px;
-  /*margin-left: 50px*/;
   -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -86,9 +84,6 @@ div.announcements-tab div.announcements-tab-content:not(.active){
                 <a href="#" class="list-group-item text-center">
                   Coming Soon
                 </a>
-                <a href="#" class="list-group-item text-center">
-                  Sale
-                </a>
               </div>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 announcements-tab">
@@ -98,28 +93,12 @@ div.announcements-tab div.announcements-tab-content:not(.active){
                 </div>
                 <!-- new discounts section -->
                 <div class="announcements-tab-content">
-                    <center>
-                      <h1 class="glyphicon glyphicon-road" style="font-size:12em;color:#55518a"></h1>
-                      <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                      <h3 style="margin-top: 0;color:#55518a">Train Reservation</h3>
-                    </center>
+                   <%= render "new_discounts"%>
                 </div>
     
                 <!-- Coming  soon section -->
                 <div class="announcements-tab-content">
-                    <center>
-                      <h1 class="glyphicon glyphicon-home" style="font-size:12em;color:#55518a"></h1>
-                      <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                      <h3 style="margin-top: 0;color:#55518a">Hotel Directory</h3>
-                    </center>
-                </div>
-                <!-- sale section-->
-                <div class="announcements-tab-content">
-                    <center>
-                      <h1 class="glyphicon glyphicon-cutlery" style="font-size:12em;color:#55518a"></h1>
-                      <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                      <h3 style="margin-top: 0;color:#55518a">Restaurant Diirectory</h3>
-                    </center>
+                <%= render "coming_soon"%>
                 </div>
             </div>
         </div>

@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+require 'rqrcode'  
+
   def index
     # Load past results in reverse order
     @contests = Contest.order("created_at desc")
@@ -69,7 +71,16 @@ class DashboardController < ApplicationController
  
   end
     
- 
+  def discount_codes
+    chars = ('a'..'z').to_a + ('A'..'Z').to_a
+    code=SecureRandom.uuid.first(7)
+    ##15digit code
+    code=(0...8).collect { chars[Kernel.rand(chars.length)] }.join + code + Time.now.strftime('%s')
+    @qr = RQRCode::QRCode.new( code, :size => 4, :level => :h ).to_img.resize(200, 200).to_data_url
+    p @qr
+    @random_codes=(0...8).collect { chars[Kernel.rand(chars.length)] }.join + SecureRandom.uuid.first(7) +Time.now.strftime('%s')
+    p @random_codes
+  end
 
 
   private

@@ -49,6 +49,7 @@ end
   post "dashboard/announcements"
 
   get "download_pdf" => 'dashboard#download_pdf'
+  get 'discount_codes' => "dashboard#discount_codes"
   
   post "create_contest" => 'dashboard#create_contest'
   get "test_connection" => 'dashboard#test_connection'

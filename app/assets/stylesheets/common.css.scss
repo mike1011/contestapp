@@ -9,12 +9,23 @@ body{
   
 }
 
-.dropdown-menu li > a {
+.icon .fa{
+    color:#fff !important;
+}
+.icon .more > a:hover{
+    color:#fff !important;
+}
+
+.fa{
+    color:#62B66B !important;
+}
+
+.nav_dropdown > .dropdown-menu li > a {
     padding:3px;
 
 }
 
-.dropdown-menu li > a:hover {
+.nav_dropdown > .dropdown-menu li > a:hover {
     font-weight:bolder;
 
 }
@@ -22,6 +33,7 @@ body{
 .modal-dialog{
 	max-width:80%;
 	border: 6px solid #000;
+     margin-top: 71px;
 }
 
 .modal-open .modal{
@@ -651,4 +663,65 @@ body{
     cursor: pointer;
     opacity: 0;
     filter: alpha(opacity=0);
+}
+
+select.new_discount_select {
+  
+  width: 100% !important;
+}
+
+.new_discount_select option {
+    padding: 5px;
+}
+
+//////* to show selected item in dropdown * /
+.bootstrap-select > .dropdown-menu  >ul.inner >li.selected{
+    color:red !important;
+
+}
+
+.modal-backdrop{
+    z-index:0 !important;
+}
+
+
+
+
+$DarkBrown: #292321;
+
+$Orange: #62B66B;
+
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label {
+    color: $DarkBrown;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+}
+input[type="radio"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+}
+
+input[type="radio"] + label span {
+     background-color:$DarkBrown;
+}
+
+input[type="radio"]:checked + label span{
+     background-color:$Orange;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition:background-color 0.4s linear;
+  -o-transition:background-color 0.4s linear;
+  -moz-transition:background-color 0.4s linear;
+  transition:background-color 0.4s linear;
 }

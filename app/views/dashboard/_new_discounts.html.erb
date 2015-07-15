@@ -1,18 +1,28 @@
         
-           <%= form_for(NewOffer.new,url:recommend_products_path,:html=>{:class=>"col-md-8 col-md-offset-2 pad10"},method:'POST',remote:true) do |f|%>	
+           <%= form_for(NewOffer.new,url:recommend_products_path,:html=>{:class=>"col-md-8 col-md-offset-2 pad10"},method:'POST',remote:true) do |f|%>		
            <h4 class="lead">
             <span class="fa-stack fa-lg">
               <i class="fa fa-square-o fa-stack-2x"></i>
-              <i class="fa fa-star fa-stack-1x"></i>
+              <i class="fa fa-gift fa-stack-1x"></i>
             </span>
 
-             Add New Offer</h4>
+             Add New Discount</h4>
                   <div class="col-lg-12">
                 <div class="form-group">
-                    <label for="InputName">Offer Name</label>
-                    <div class="input-group col-md-12">
-                      <%= f.text_field(:name,:class=>"form-control",:placeholder=>"Enter 5 emails",:required=>true)%>
-                    </div>
+                    <label for="InputName">Discount Name</label>
+                    <div class="input-group">
+                     <select class="selectpicker" data-width="75%">
+                        <option data-subtext="Orders">Buy 1 Get 1 Free</option>
+                        <option data-subtext="Orders">Buy 2 Get 1 Free</option>
+                        <option data-divider="true"></option>
+                        <option data-subtext="Products">10% Off on All Purchases</option>
+                        <option data-subtext="Products">20% Off on All Purchases</option>
+                        <option data-subtext="Products">30% Off on All Purchases</option>
+                        <option data-subtext="Products">40% Off on All Purchases</option>
+                        <option data-subtext="Products">50% Off on All Purchases</option>
+                      </select>
+                      <a data-toggle="modal" href="#add_new_discount_modal" class="btn btn-default">Add</a>
+                   </div>         
                 </div>
                 <div class="form-group">
                     <label for="InputMessage">Tell more about the offer</label>
@@ -60,49 +70,48 @@
             </div>
                 <%end%>
 
-
+<div id="add_new_discount_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">New Discount Details</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal pad10">
+          <div class="form-group"><label>Title</label><input class="form-control required" placeholder="Discount Name" data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters." type="text"></div>
+          <div class="form-group"><label>Description</label><textarea class="form-control" placeholder="Your message here.." data-placement="top" data-trigger="manual"></textarea></div>
+          <div class="form-group">
+            <label>Associated with</label>
+            
+            <div class="input-group">
+              <input type="radio" id="radio01" name="radio" />
+              <label for="radio01"><span></span>Product</label>
+            
+             <input type="radio" id="radio02" name="radio" />
+             <label for="radio02"style="margin-left: 20px;"><span></span>Order</label>
+            </div>
+         </div>
+          <div class="form-group ">
+            <button type="submit" class="btn btn-success">Save</button> 
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 $(document).ready(function(){
 
-var startDate;
-$('#new_offer_start_datetime').datetimepicker({
-                     timepicker:true,
-                     closeOnDateSelect:false,
-                     closeOnTimeSelect: true,
-                     initTime: true,
-                     theme:'dark',
-                     format: 'd-m-Y H:m',
-                     minDate: 0,
-                     roundTime: 'ceil',
-                     onChangeDateTime: function(dp,$input){
-                               startDate = $("#new_offer_start_datetime").val();
-                                                           },
-                     onClose: function(current_time, $input){
-                            var endDate = $("#new_offer_end_datetime").val();
-                            if(startDate>endDate){
-                              $("#end_datetime_error").html("End DateTime must be greater than Start DateTime").toggle();
-                              $("#new_offer_end_datetime").val(" ");
-                             }
-             }                                                           
-                                                           });
+$('.selectpicker').selectpicker({
+        style: 'btn-default',
+        size: false,
+        width:'100%'
+    });
 
 
- $("#new_offer_end_datetime").datetimepicker({
-                     timepicker:true,
-                     closeOnDateSelect:false,
-                     closeOnTimeSelect: true,
-                     initTime: true,
-                     theme:'dark',
-                     format: 'd-m-Y H:m',
-                     onClose: function(current_time, $input){
-                            var endDate = $("#new_offer_end_datetime").val();
-                            if(startDate>endDate){
-                              $("#end_datetime_error").html("End DateTime must be greater than Start DateTime").toggle();
-                              $("#new_offer_end_datetime").val(" ");
-                             }
-             }
-              });
 
 $("#new_offer_image").change(function(evt){
       $("#new_offer_image").parent().css({"color": "#444 !mportant;"});

@@ -55,7 +55,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
       <ul class="nav navbar-nav navbar-right">
         <li><a href="https://<%= current_account.shopify_account_url%>" target="_blank">Visit Shop</a></li>
-        <li class="dropdown ">
+        <li class="dropdown nav_dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <%= current_account.shop_owner.capitalize%>
             <span class="caret"></span></a>
@@ -88,7 +88,7 @@
   </nav>
 
 
-      <div class="container container-box black">
+      <div class="container black">
         <div id="flash">
           <% if notice.present? %>
             <%= render partial: "shared/ajax_flash" %>
@@ -101,7 +101,7 @@
             <%= yield %>
           </div>
           <% else %>
-          <div class="col-md-12 pad10">
+          <div class="col-md-12">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>

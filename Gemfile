@@ -14,6 +14,8 @@ end
 gem "chartkick"
 gem 'prawn-rails'
 
+# gem "rqrcode"
+gem 'rqrcode_png'  
 
 #added for new offers having image,video
 gem "paperclip" #, "3.5.1"
