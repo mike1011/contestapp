@@ -29,6 +29,7 @@ end
       get 'recommend'
       post 'recommend'
       get 'analysis'
+      get 'search'
     end
     resources :variants
   end

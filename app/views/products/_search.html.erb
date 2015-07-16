@@ -1,0 +1,48 @@
+
+<style type="text/css">
+
+.thumbnail {
+	padding:0;
+}
+.product_description {
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+</style>
+
+
+
+<% if @products.present?%>
+<div class="col-md-12"  style="margin-top: 30px;">
+<% @products.each do |p|%>
+
+
+
+	      <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="<%= p[:img_src]%>" style="width: 500px; height: 250px;">
+              <div class="caption">
+                <h4><%= p[:title]%></h4>
+                <p> <small>price:<%= p[:price]%>| <%= p[:vendor].capitalize%></small></p>
+                 <div class="product_description">
+                         <%= p[:body_html].html_safe%>    
+                         </div>
+               <div class="pad10">
+               <a href="#" class="btn btn-info btn-xs" role="button">Recommend</a> <a href="#" class="btn btn-default btn-xs" role="button">Remind me Later</a>
+               </div>          
+            </div>
+          </div>
+        </div>
+
+
+
+<%end%>
+
+</div>
+
+
+<%else%>
+<p>Nothing found,Search again.</p>
+<%end%>

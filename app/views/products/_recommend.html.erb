@@ -28,18 +28,31 @@
 }
 
 
+.thumbnail {
+  padding:0;
+}
+.product_description {
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+
 </style>
 
 
     <div class="col-md-8 col-md-offset-2">
+       <%= form_tag search_products_path, method: :get,remote:true,class:"form-horizontal" do %>
             <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for your product" />
+                 <%= text_field_tag :query_first, params[:query_first],class:"form-control",placeholder:"Search product in your shop" %>
                 <div class="input-group-btn">
                     <div class="btn-group" role="group">
                         <div class="dropdown dropdown-lg">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu" style="width: 647px;">
-                                <form class="form-horizontal" role="form">
+                            <div class="dropdown-menu dropdown-menu-right" role="menu" style="width: 643px;">
+                             <%= form_tag search_products_path, method: :get,remote:true,class:"form-horizontal" do %>
                                   <div class="form-group">
                                     <label for="filter">Filter by</label>
                                     <select class="form-control">
@@ -52,30 +65,60 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="contain">Product Name</label>
-                                    <input class="form-control" type="text" />
+                                    <%= text_field_tag :query_second, params[:query_second],class:"form-control" %>
                                   </div>
                                   <div class="form-group">
                                     <label for="contain">Contains the words</label>
-                                    <input class="form-control" type="text" />
+                                    <%= text_field_tag :query_third, params[:query_third],class:"form-control" %>
                                   </div>
                                   <button type="submit" class="btn btn-primary"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
-                                </form>
+                                <%end%>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
+                        <button type="commit" class="btn btn-primary"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
                     </div>
                 </div>
+            </div>
+            <%end%>
+          </div>
+        </div>
+        <div id="show_searched_products">
+
+          <% if @products.present?%>
+<div class="col-md-12"  style="margin-top: 30px;">
+<% @products.each do |p|%>
+
+
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="<%= p[:img_src]%>" style="width: 500px; height: 250px;">
+              <div class="caption">
+                <h4><%= p[:title]%></h4>
+                <p> <small>price:<%= p[:price]%>| <%= p[:vendor].capitalize%></small></p>
+                 <div class="product_description">
+                         <%= p[:body_html].html_safe%>    
+                         </div>
+               <div class="pad10">
+               <a href="#orderModal_<%= p[:product_id]%>" class="btn btn-xs btn-primary" data-toggle="modal" data-id="<%= p[:product_id]%>">Recommend</a>
+               <a href="#" class="btn btn-default btn-xs" role="button">Remind me Later</a>
+               </div>          
             </div>
           </div>
         </div>
 
+<div id="orderModal_<%= p[:product_id]%>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Recommend <%= p[:title]%></h3>
+      </div>
+      <div class="modal-body">
+        <%= form_for(ProductRecommendation.new,url:recommend_products_path,:html=>{:class=>"form-horizontal pad10"},method:'POST',remote:true) do |f|%>          
 
-
-
-           <%= form_for(ProductRecommendation.new,url:recommend_products_path,:html=>{:class=>"col-md-8 col-md-offset-2 pad10"},method:'POST',remote:true) do |f|%>		
-                  <div class="col-lg-12">
-                <div class="form-group">
-                    <label for="InputName">Enter Name</label>
+                        <div class="form-group">
+                    <label for="InputName">Enter any 5 Emails</label>
                     <div class="input-group col-md-12">
                       <%= f.text_field(:recommended_to,:class=>"form-control",:placeholder=>"Enter 5 emails",:required=>true)%>
                     </div>
@@ -86,9 +129,38 @@
                          <%= f.text_area(:message,:class=>"form-control",:placeholder=>"Enter a message",:rows=>4,:cols=>86,:required=>true)%>
                     </div>
                 </div>
+                <%= hidden_field(:product_recommendation,:product_id,:value=> p[:product_id])%>
+                <%= hidden_field(:product_recommendation,:product_name,:value=> p[:title])%>
+                <%= hidden_field(:product_recommendation,:recommended_product_image_url,:value=> p[:img_src])%>
+
+    <div class="squaredThree">
+      <input type="checkbox" id="send_product_description" name="send_product_description" checked />
+      <label for="squaredThree">Send Product Description</label>
+    </div>
+                 
                 <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info">
-   <a class="btn btn-danger " href="<%= root_url%>" role="button" data-slide="prev">Back</a>
-            </div>
-                <%end%>
-            
-         
+<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%end%>
+
+</div>
+
+
+<%else%>
+<p>Nothing found,Search again.</p>
+<%end%>
+
+        </div>
+
+
+
+   
+
+     

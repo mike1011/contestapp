@@ -82,10 +82,22 @@ class ProductsController < ApplicationController
 
  def recommend
   Rails.logger.info "============RECOMMEND A PRODUCT============"
-  if request.post?
-      recommendation=PoductRecommendation.new(product_recommendation_params)
+  if request.get?
+    ##show all products and recommend button against them
+    products_ids=Product.pluck(:shopify_product_id)
+    @products = ShopifyAPI::Product.find(:all, :params => {:id => products_ids})
+    @products = @products.map do |c|
+      { :product_id=>c.id ,:body_html => c.body_html,:img_src=> c.images.first.src, :title => c.title,:price=>c.variants.first.price,:vendor=>c.vendor}
+    end 
+    
+     # recommendation=PoductRecommendation.new(product_recommendation_params)
    else
-
+    ##when recommend form is posted
+    recommendation=ProductRecommendation.new(product_recommendation_params)
+    recommendation.recommended_product_image_url=current_account.shopify_account_url+"/products/#{recommendation.product_name.parameterize}"
+    recommendation.recommended_by=current_account.shopify_shop_name
+    recommendation.account_id=current_account.id
+    recommendation.save!
    end   
    
  end
@@ -102,6 +114,21 @@ class ProductsController < ApplicationController
   
  end
 
+
+def search
+  search=params[:query_first]|| params[:query_second] || params[:query_third]
+
+  @products = ShopifyAPI::Product.find(:all, :params => {:title => search,:body_html => search, :order => "updated_at ASC" })
+  @products = @products.map do |c|
+      { :body_html => c.body_html,:img_src=> c.images.first.src, :title => c.title,:price=>c.variants.first.price,:vendor=>c.vendor}
+    end   
+ ##p @products.first[:img_src]
+
+  
+end
+
+
+# ////////////////////////////////////
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_product
@@ -113,7 +140,7 @@ class ProductsController < ApplicationController
     params.require(:product,:product_recommendation).permit(:name, :shopify_product_id, :last_shopify_sync,:recommended_to,:message)
   end
   def product_recommendation_params
-    params.require(:product_recommendation).permit(:recommended_to,:message)
+    params.require(:product_recommendation).permit(:recommended_to,:message,:product_id,:recommended_product_image_url,:product_name)
   end
 
 end
