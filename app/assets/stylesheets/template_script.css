@@ -1,0 +1,32 @@
+* {
+	margin: 0;
+	padding: 0
+}
+#sortable1, #sortable2 {
+	border: 1px solid #aaa;	
+	min-height: 20px;
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 0 0 0;
+	float: left;
+	margin-right: 10px;
+}
+
+#sortable1 li, #sortable2 li {		
+	font-size: 13px;
+	width: 100%;
+	margin:30px 5px;
+	position:relative;
+}
+#sortable1 .container ,#sortable2 .container{
+	margin: 0;
+	padding: 0;
+	width: auto;
+}
+
+#sortable1{ padding:10px;width:70%;}
+#sortable2{ width:40%; float:left}
+#sortable2 li{ padding:5px; margin:5px; width:478px;}
+.btns{ right:0; top:-15px; position:absolute}
+.containEditable{ position:absolute; width:600px; height:300px; left:50%; top:50%; margin-left:-300px; margin-top:-150px; background:#fff; padding:10px; border:1px solid #000}
+.updateBtn{ position:absolute; top:-20px; right:0px;; font-size:12px; background:#fff; padding:5px; cursor:pointer; z-index:9999; font-weight:bold}

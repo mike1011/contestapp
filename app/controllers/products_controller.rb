@@ -81,8 +81,9 @@ class ProductsController < ApplicationController
 
 
  def recommend
-  Rails.logger.info "============RECOMMEND A PRODUCT============"
+  
   if request.get?
+    Rails.logger.info "============LOADING PRODUCTS TO RECOMMEND============"
     ##show all products and recommend button against them
     products_ids=Product.pluck(:shopify_product_id)
     @products = ShopifyAPI::Product.find(:all, :params => {:id => products_ids})
@@ -92,12 +93,17 @@ class ProductsController < ApplicationController
     
      # recommendation=PoductRecommendation.new(product_recommendation_params)
    else
-    ##when recommend form is posted
-    recommendation=ProductRecommendation.new(product_recommendation_params)
-    recommendation.recommended_product_image_url=current_account.shopify_account_url+"/products/#{recommendation.product_name.parameterize}"
-    recommendation.recommended_by=current_account.shopify_shop_name
-    recommendation.account_id=current_account.id
-    recommendation.save!
+    Rails.logger.info "============RECOMMENDING A PRODUCT==============="
+    ##when recommend form is posted,send mail
+    @recommendation=ProductRecommendation.new(product_recommendation_params)
+    @recommendation.recommended_product_image_url=current_account.shopify_account_url+"/products/#{@recommendation.product_name.parameterize}"
+    @recommendation.recommended_by=current_account.shopify_shop_name
+    @recommendation.account_id=current_account.id
+    @recommendation.send_later=params[:send_later] if params[:send_later].present?
+    @recommendation.send_later_datetime= DateTime.parse(params[:send_later_datetime]) if params[:send_later].present?
+    if @recommendation.save!
+      RecommendationMailer.delay.send_recommendation(@recommendation.id)
+    end
    end   
    
  end
@@ -120,7 +126,7 @@ def search
 
   @products = ShopifyAPI::Product.find(:all, :params => {:title => search,:body_html => search, :order => "updated_at ASC" })
   @products = @products.map do |c|
-      { :body_html => c.body_html,:img_src=> c.images.first.src, :title => c.title,:price=>c.variants.first.price,:vendor=>c.vendor}
+      { :img_src=> c.images.first.src, :title => c.title,:price=>c.variants.first.price,:vendor=>c.vendor}
     end   
  ##p @products.first[:img_src]
 
@@ -140,7 +146,7 @@ end
     params.require(:product,:product_recommendation).permit(:name, :shopify_product_id, :last_shopify_sync,:recommended_to,:message)
   end
   def product_recommendation_params
-    params.require(:product_recommendation).permit(:recommended_to,:message,:product_id,:recommended_product_image_url,:product_name)
+    params.require(:product_recommendation).permit(:recommended_to,:message,:product_id,:recommended_product_image_url,:product_name,:send_later,:send_later_datetime)
   end
 
 end

@@ -1,0 +1,14 @@
+development:
+  :address: smtp.mandrillapp.com
+  :port: 25
+  :user_name: milindsingh84@gmail.com
+  :password: W2x0jESv9H6LYmfAV8Elyw
+production:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: milindsingh84@gmail.com
+  :password: catchmeifyoucan@123
+  :enable_starttls_auto: true
+  
+

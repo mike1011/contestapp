@@ -26,19 +26,9 @@
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
-
-
 .thumbnail {
   padding:0;
 }
-.product_description {
-    max-height: 200px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-
-
 
 </style>
 
@@ -96,9 +86,6 @@
               <div class="caption">
                 <h4><%= p[:title]%></h4>
                 <p> <small>price:<%= p[:price]%>| <%= p[:vendor].capitalize%></small></p>
-                 <div class="product_description">
-                         <%= p[:body_html].html_safe%>    
-                         </div>
                <div class="pad10">
                <a href="#orderModal_<%= p[:product_id]%>" class="btn btn-xs btn-primary" data-toggle="modal" data-id="<%= p[:product_id]%>">Recommend</a>
                <a href="#" class="btn btn-default btn-xs" role="button">Remind me Later</a>
@@ -115,6 +102,8 @@
         <h3 id="myModalLabel">Recommend <%= p[:title]%></h3>
       </div>
       <div class="modal-body">
+
+
         <%= form_for(ProductRecommendation.new,url:recommend_products_path,:html=>{:class=>"form-horizontal pad10"},method:'POST',remote:true) do |f|%>          
 
                         <div class="form-group">
@@ -133,33 +122,89 @@
                 <%= hidden_field(:product_recommendation,:product_name,:value=> p[:title])%>
                 <%= hidden_field(:product_recommendation,:recommended_product_image_url,:value=> p[:img_src])%>
 
-    <div class="squaredThree">
+    <p>
       <input type="checkbox" id="send_product_description" name="send_product_description" checked />
-      <label for="squaredThree">Send Product Description</label>
+      <label>Send Product Description</label>
+         <span class="pull-right">
+      <input type="checkbox" id="send_later"  data-rel="<%= p[:product_id]%>"  class="send_later" name="send_later" unchecked/>
+      <label>Send later</label>      
+    </span>
+    </p>
+    <!-- for send later div -hidden -->
+    <div id="send_later_div_<%= p[:product_id]%>" style="display:none;">
+      <p>Select the Future Date of sending this Recommendation </p>
+      <p class="text-info"><small>not more than 30days</small></p>
+
+         <div class="input-group">
+                       <input type="text"  name="send_later_datetime"  class="send_later_datetime" >
+                         <p id="send_later_datetime_error_<%= p[:product_id]%>" class="send_later_datetime_error"></p>
+                    </div>
+
     </div>
+
+
                  
-                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info">
+                <input type="submit" name="submit" id="submit" value="Send" class="btn btn-info">
 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+ 
 
         <%end%>
-      </div>
+      </div> <!-- model body ends -->
     </div>
   </div>
 </div>
 
 
-<%end%>
+  <%end%>
+
+  </div>
+
+
+  <%else%>
+  <p>Nothing found,Search again.</p>
+  <%end%>
 
 </div>
 
-
-<%else%>
-<p>Nothing found,Search again.</p>
-<%end%>
-
-        </div>
+<script type="text/javascript">
+$(function(){
 
 
+$(".send_later").click(function(){
+  var rel=$(this).data("rel");
+
+$("#send_later_div_"+rel).toggle();
+
+
+})//method ends
+
+var startDate;
+var currentDate= new Date(); 
+var maxdate = new Date(currentDate); 
+//not more than 30days
+maxdate.setDate(currentDate.getDate() + 30)
+  $(document).on('focusin', '.send_later_datetime', function(){
+      $(this).datetimepicker({
+                    timepicker:false,
+                    autodateOnStart: true,
+                     closeOnDateSelect:true,
+                     closeOnTimeSelect: true,
+                     initTime: false,
+                     theme:'dark',
+                     format: 'd/m/Y',
+                     minDate: 0,
+                     maxDate:maxdate,
+                     onChangeDateTime: function(dp,$input){
+                               startDate = $(".send_later_datetime").val();
+                                                           }
+  
+      });
+    });
+
+
+})//document ends
+
+</script>
 
    
 

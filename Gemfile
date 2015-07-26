@@ -17,6 +17,12 @@ gem 'prawn-rails'
 # gem "rqrcode"
 gem 'rqrcode_png'  
 
+#for sending delayed mails
+gem "sidekiq"
+gem "sinatra", require: false
+gem "slim"
+
+
 #added for new offers having image,video
 gem "paperclip" #, "3.5.1"
 gem 'aws-sdk', '< 2.0'
@@ -26,6 +32,9 @@ gem 'rmagick'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   gem "sqlite3"
+  gem "foreman"
+  gem "letter_opener"
+  gem "thin"
 
   # Helpful gems
   gem "better_errors" # improves error handling
@@ -64,7 +73,7 @@ gem 'shopify_api'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

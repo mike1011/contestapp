@@ -72,7 +72,7 @@ $('#new_offer_start_datetime').datetimepicker({
                      closeOnTimeSelect: true,
                      initTime: true,
                      theme:'dark',
-                     format: 'd-m-Y H:m',
+                     format: 'd/m/Y h:i A',
                      minDate: 0,
                      roundTime: 'ceil',
                      onChangeDateTime: function(dp,$input){
@@ -94,7 +94,7 @@ $('#new_offer_start_datetime').datetimepicker({
                      closeOnTimeSelect: true,
                      initTime: true,
                      theme:'dark',
-                     format: 'd-m-Y H:m',
+                     format: 'd/m/Y h:i A',
                      onClose: function(current_time, $input){
                             var endDate = $("#new_offer_end_datetime").val();
                             if(startDate>endDate){

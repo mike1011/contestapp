@@ -1,0 +1,8 @@
+=======to configure redis,sidekiq and memecache on start using foreman==========
+
+need to create log/tmp/pids/sidekiq.pid
+https://coderwall.com/p/hui3xq/foreman-sidekiq-memcached-mailcatcher-and-thin
+
+http://blog.daviddollar.org/2011/05/06/introducing-foreman.html
+
+

@@ -9,6 +9,20 @@ body{
   
 }
 
+.navbar-inverse{
+    background:#444 !important;
+}
+.custom_color,.btn-primary{
+    
+    color:#fff !important;
+    background:#62b66b !important;
+}
+
+.btn-primary > .fa {
+    color: snow !important;
+}
+
+
 .icon .fa{
     color:#fff !important;
 }
@@ -33,7 +47,7 @@ body{
 .modal-dialog{
 	max-width:80%;
 	border: 6px solid #000;
-     margin-top: 71px;
+     margin-top: 15px;
 }
 
 .modal-open .modal{

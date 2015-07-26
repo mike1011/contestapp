@@ -1,6 +1,6 @@
 Shopease::Application.routes.draw do
 
-
+resources :template
 
 resources :analysis do
   collection do
