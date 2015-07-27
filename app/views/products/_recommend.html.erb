@@ -107,7 +107,7 @@
         <%= form_for(ProductRecommendation.new,url:recommend_products_path,:html=>{:class=>"form-horizontal pad10"},method:'POST',remote:true) do |f|%>          
 
                         <div class="form-group">
-                    <label for="InputName">Enter any 5 Emails</label>
+                    <label for="InputName">Enter any 5 Emails   <span><small style="color:#888;">(comma seperated)</small></span></label>
                     <div class="input-group col-md-12">
                       <%= f.text_field(:recommended_to,:class=>"form-control",:placeholder=>"Enter 5 emails",:required=>true)%>
                     </div>

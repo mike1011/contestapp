@@ -12,6 +12,13 @@ body{
 .navbar-inverse{
     background:#444 !important;
 }
+.navbar-header > ul.nav > li.active > a {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
 .custom_color,.btn-primary{
     
     color:#fff !important;

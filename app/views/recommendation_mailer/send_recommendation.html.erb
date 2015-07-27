@@ -2,9 +2,18 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster:400,700,400italic)" />
   <title>RailsCasts Weekly</title>
   <style type="text/css">
-  body, td { color:#000000; font-size:14px; font-family:Verdana,Helvetica,Arial; }
+  body, td {
+   color:#000000;
+   font-size:14px; 
+ /*  font-family:Verdana,Helvetica,Arial; */
+    font-family: 'Lobster', cursive !important;
+ }
+  #main{
+    background: #8BFFFF;
+  }
   .divider { background-color:#555555; height:2px; }
   .episode h2 { margin-top:0; margin-bottom:8px; font-size:18px; }
   .episode p { margin:8px 0; }
@@ -20,26 +29,26 @@
       <table width="650" id="main" border="0" cellpadding="0" cellspacing="20">
         <tr>
           <td id="header" colspan="2">
-            <a href="http://railscasts.com/"><img src="http://railscasts.com/images/railscasts_logo.png" width="423" height="56" alt="RailsCasts"></a>
+              <a href="https://<%= @account.shopify_account_url%>"><img src="https://<%= @recommendation.recommended_product_image_url%>" width="423" height="56" alt="<%= @account.shopify_shop_name%>" target="_blank">Visit the Shop</a>
           </td>
         </tr>
         <tr>
           <td class="divider" colspan="2" bgcolor="#555555" height="2"></td>
         </tr>
         <tr class="episode">
-          <td>
-            <a href="#"><img src="http://railscasts.com/assets/episodes/stills/310-getting-started-with-rails.png" width="200" height="125" alt="#310 Getting Started with Rails"></a>
+          <td style="border:1px solid #CCCCCC;">
+            <a href="#"><img src="https://<%= @recommendation.recommended_product_image_url%>" width="200" height="125" alt="<%= @recommendation.product_name%>"></a>
           </td>
           <td valign="top">
-            <h2><%= @recommdation.recommended_by%> has made a Recommendation</h2>
-            <p>Learning Ruby on Rails can be overwhelming, especially if you are new to programming. Here I will take you on a tour through various resources to help get started with Rails.</p>
+            <h2><%= @recommendation.recommended_by%> has made a Recommendation</h2>
+            <p><%= @recommendation.message%></p>
             <p>
-              <a href="#">View the Product</a>
-              <span class="duration">(7 minutes)</span>
+              <a href="http://<%= @recommendation.recommended_product_image_url%>" target="_blank">View the Product</a>
+              <!-- <span class="duration"></span> -->
             </p>
           </td>
           <td>
-          	<img src="<%= @recommdation.recommended_product_image_url%>">
+          	<img src="<%= @recommendation.recommended_product_image_url%>">
           </td>
         </tr>
         <tr>
@@ -47,8 +56,8 @@
         </tr>
         <tr>
           <td id="footer" colspan="2" align="center">
-            <p><a href="#">Unsubscribe</a> if you do not wish to receive these emails in the future.</p>
-            <p>&copy;2011 RailsCasts</p>
+   <!--          <p><a href="#">Unsubscribe</a> if you do not wish to receive these emails in the future.</p> -->
+            <p>&copy;2015 Shopease</p>
           </td>
         </tr>
       </table>

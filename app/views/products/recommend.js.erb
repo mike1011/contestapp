@@ -1,4 +1,6 @@
 // $("#btn_close_recommend_modal").click();
+//hide model on submit
+$("#orderModal_<%= @recommendation.product_id %>").modal('hide');
 
-$("#mainCarousel").carousel(1);
-$("#mainCarousel").find("[data-slide-number='1']").html("<%= escape_javascript(render(:partial => 'recommend')) %>");
+// $("#mainCarousel").carousel(1);
+// $("#mainCarousel").find("[data-slide-number='1']").html("<%= escape_javascript(render(:partial => 'recommend')) %>");
