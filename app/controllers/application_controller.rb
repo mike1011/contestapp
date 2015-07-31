@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # This method is called before each controller action is
   # executed in order to ensure that the user is logged in
   def require_login
-    redirect_to sessions_new_path unless current_account.present?
+    redirect_to connect_to_the_store_path unless current_account.present?
   end
   def login(account_id)
     session[:current_account_id] = account_id

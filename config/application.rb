@@ -30,7 +30,7 @@ module Shopease
       #{config.root}/app/workers
     )
 
-
+config.middleware.use "PDFKit::Middleware", :print_media_type => true
     
   end
 end

@@ -6,13 +6,13 @@
 <form action="<%= shopify_authorize_path %>" class="custom_form" method="post">
         <div class="form-group">
         <label for="InputName">Shopify Subdomain (<strong>subdomain</strong>.myshopify.com)</label>
-        <div class="input-group col-md-12">
-        <input type="text" name="shop" id="shop" required="required"/><br/>
+        <div class="input-group">
+        <input type="text"  class="form-control" name="shop" id="shop" required="required"/><br/>
         </div>
     </div>
     <div>
         <br/>
-        <input type="submit" value="Connect with the Store" class="btn btn-primary"/>
+        <input type="submit" value="Connect with the Store" class="btn btn-primary btn-sm"/>
     </div>
 </form>
 <% if Rails.env.development? %>

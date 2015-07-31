@@ -1,0 +1,105 @@
+<style type="text/css">
+.btn-radio {
+    width: 100%;
+}
+.img-radio {
+    opacity: 1;
+    margin-bottom: 5px;
+}
+
+.space-20 {
+    margin-top: 20px;
+}
+
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <h1>Select your template</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                     <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                      <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                     <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                    <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                     <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                     <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                      <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                        <button type="button" class="btn btn-primary btn-radio">Select</button>
+                        <input type="checkbox" id="Select-item" class="hidden">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(function () {
+    $('.btn-radio').click(function(e) {
+        $('.btn-radio').not(this).removeClass('active')
+            .siblings('input').prop('checked',false)
+            .siblings('.img-radio').css('opacity','1');
+        $(this).addClass('active')
+            .siblings('input').prop('checked',true)
+            .siblings('.img-radio').css('opacity','0.5');
+    });
+});
+
+</script>

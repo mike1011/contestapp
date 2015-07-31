@@ -1,5 +1,6 @@
 Shopease::Application.routes.draw do
 
+resources :feedbacks
 resources :template
 
 resources :analysis do
@@ -19,7 +20,7 @@ end
   get "webhooks/uninstall"
   post "webhooks/uninstall"
 
-  get "sessions/new"
+  get "connect_to_your_store" => 'sessions#new'
   post "sessions/create"
   get "sessions/destroy"
 

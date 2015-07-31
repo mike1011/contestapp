@@ -17,6 +17,9 @@ gem 'prawn-rails'
 # gem "rqrcode"
 gem 'rqrcode_png'  
 
+# to convert html to pdf
+gem "pdfkit"
+
 #for sending delayed mails
 gem "sidekiq"
 gem "sinatra", require: false

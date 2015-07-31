@@ -135,17 +135,17 @@
       <p>Select the Future Date of sending this Recommendation </p>
       <p class="text-info"><small>not more than 30days</small></p>
 
-         <div class="input-group">
-                       <input type="text"  name="send_later_datetime"  class="send_later_datetime" >
+         <div class="form-group">
+                       <input type="text"  name="send_later_datetime"  class="send_later_datetime form-control" >
                          <p id="send_later_datetime_error_<%= p[:product_id]%>" class="send_later_datetime_error"></p>
                     </div>
 
     </div>
 
-
-                 
-                <input type="submit" name="submit" id="submit" value="Send" class="btn btn-info">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <div class="form-group">                 
+          <input type="submit" name="submit" id="submit" value="Send" class="btn btn-info">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>      
  
 
         <%end%>

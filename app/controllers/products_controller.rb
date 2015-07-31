@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /products
   # GET /products.json
   def index
@@ -102,7 +102,17 @@ class ProductsController < ApplicationController
     @recommendation.send_later=params[:send_later] if params[:send_later].present?
     @recommendation.send_later_datetime= DateTime.parse(params[:send_later_datetime]) if params[:send_later].present?
     if @recommendation.save!
-      RecommendationMailer.delay.send_recommendation(@recommendation.id)
+      ##send mail to only 5 recipents
+      mailers_count=@recommendation.recommended_to
+      mailers_count.split(",").first(5).each do |reciever|
+      Rails.logger.info "======Sending mail to #{reciever}====>>>>>>"
+        if @recommendation.send_later and @recommendation.send_later_datetime.present?      
+        RecommendationMailer.delay_until(@recommendation.send_later_datetime).send_recommendation(@recommendation.id,reciever,current_account.id)
+        else
+        RecommendationMailer.delay.send_recommendation(@recommendation.id,reciever,current_account.id)
+        end      
+    end
+      
     end
    end   
    
