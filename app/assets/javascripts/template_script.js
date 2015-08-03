@@ -23,7 +23,7 @@ function documentReadyHandler(){
 	_mainContainer.sortable({		
 		 receive: function (e, ui) {			 
 			 $(".btns").remove();
-			$(this).find('li').prepend('<div class="btns"><a href="#" class="editBtn">Edit</a> | <a href="#" class="btnClose">Delete</a></div>');
+			$(this).find('li').prepend('<div class="btns"><a href="#" class="editBtn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i></a> | <a href="#" class="btnClose btn-sm btn-danger"><i class="fa fa-times fa-lg"></i></a></div>');
 			
 			/*-------Close Btn---------*/
 			var _btnClose = $(".btnClose");
@@ -35,7 +35,7 @@ function documentReadyHandler(){
 			var _editBtn = $(".editBtn");
 			_editBtn.click(function(){				
 				var _contRef = $(this).parent().parent().find('.container').html();				
-				var _lightBoxContainer = '<div class="containEditable" contenteditable="true">'+_contRef+'<div class="updateBtn">Update</div></div>';
+				var _lightBoxContainer = '<div class="containEditable" contenteditable="true">'+_contRef+'<div class="updateBtn btn-sm btn-info">Update</div></div>';
 				$('body').append(_lightBoxContainer);	
 				
 				var _updateCont = $(".updateBtn");
