@@ -1,6 +1,11 @@
 Shopease::Application.routes.draw do
 
-resources :feedbacks
+resources :feedbacks do
+   member do
+      get 'generate_pdf'
+   end   
+
+end
 resources :template
 
 resources :analysis do

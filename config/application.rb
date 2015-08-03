@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
@@ -30,7 +31,6 @@ module Shopease
       #{config.root}/app/workers
     )
 
-config.middleware.use "PDFKit::Middleware", :print_media_type => true
     
   end
 end

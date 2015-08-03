@@ -13,12 +13,11 @@ end
 
 gem "chartkick"
 gem 'prawn-rails'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
 
 # gem "rqrcode"
 gem 'rqrcode_png'  
-
-# to convert html to pdf
-gem "pdfkit"
 
 #for sending delayed mails
 gem "sidekiq"
