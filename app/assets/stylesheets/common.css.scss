@@ -67,15 +67,7 @@ body{
 
 }
 
-.modal-dialog{
-	max-width:80%;
-	border: 6px solid #000;
-     margin-top: 15px;
-}
 
-.modal-open .modal{
-	overflow:hidden;
-}
 
 .container-box{
   background-color:#fff;
@@ -717,6 +709,7 @@ select.new_discount_select {
 
 }
 
+
 .modal-backdrop{
     z-index:0 !important;
 }
@@ -762,3 +755,5 @@ input[type="radio"]:checked + label span {
   -moz-transition:background-color 0.4s linear;
   transition:background-color 0.4s linear;
 }
+
+.inlineEdit:hover { background: #fffbe1; }

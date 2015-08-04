@@ -8,11 +8,13 @@ end
 def show
 	@template_number=params[:template_number]
 	respond_to do |format|
-		format.html
-
-
+ 		format.html
 	end
-		
+end
+
+def edit
+	
+	
 end
 
 end

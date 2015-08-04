@@ -16,7 +16,7 @@
 //= require bootstrap.min
 //= require bootstrap-select.min
 //= require bootstrap-editable
-//= require bootstrap-editable
+
 
 
 

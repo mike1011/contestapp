@@ -1,8 +1,7 @@
+ <style type="text/css">
+.containEditable{ position:absolute; width:600px; height:300px; left:50%; top:50%; margin-left:-300px; margin-top:-49px; background:#fff; padding:10px; border:1px solid #000;z-index:5000 !important;}
 
-<a href="<%= edit_template_path(1)%>">Edit</a>
 
-
-      <style type="text/css">
          /* Client-specific Styles */
          div, p, a, li, td { -webkit-text-size-adjust:none; }
          #outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
@@ -64,7 +63,7 @@
         
          }
       </style>
-
+<form action="<%= template_path%>" method="PATCH">
 <!-- Start of preheader -->
 <table width="100%" bgcolor="#fcfcfc" cellpadding="0" cellspacing="0" border="0" id="backgroundTable" st-sortable="preheader" >
    <tbody>
@@ -268,10 +267,9 @@
                                                    <tbody>
                                                       <!-- title -->
                                                       <tr>
-                                                         <td style="font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #282828; text-align:left; line-height: 24px;" id="heading_1"  data-type="text" data-pk="1" data-url="/post" data-title="Enter Heading">
-                                                            Your Heading Goes Here
+                                                         <td style="font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #282828; text-align:left; line-height: 24px;" class="inlineEdit" id="heading1"  data-toggle="modal" data-type="heading1">       Your Heading Goes Here
                                                          </td>
-                                                      </tr>
+                                                       </tr>
                                                       <!-- end of title -->
                                                       <!-- Spacing -->
                                                       <tr>
@@ -280,7 +278,7 @@
                                                       <!-- /Spacing -->
                                                       <!-- content -->
                                                       <tr>
-                                                         <td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #889098; text-align:left; line-height: 24px;">
+                                                         <td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #889098; text-align:left; line-height: 24px;" class="inlineEdit" id="description1" data-toggle="modal" data-type="description1">
                                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
                                                          </td>
                                                       </tr>
@@ -650,15 +648,127 @@
       </tr>
    </tbody>
 </table>
+ <button type="commit" class="btn btn-primary">Save</button>
+</form>
+<!-- <form action="<%= template_path%>" method="PUT">
+    <input type="hidden" name="heading1" />
+    <input type="hidden" name="description1" />
+    <input type="hidden" name="description1" />
+</form> -->
+<!-- to show and update content -->
+<div class="modal modal-static fade" id="myModalUpdater" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+               <textarea id="editTextArea"  class="form-control"></textarea>
+
+            </div>
+            <div class="modal-footer">
+               <button class="btn updateContent btn-sm btn-info">Update</button>
+               <button class="btn" data-dismiss="modal">Close</button>
+            </div>            
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
 
-    //turn to inline mode
-    // $.fn.editable.defaults.mode = 'inline';
-
 $(function(){
 
-$('#heading_1').editable();
+$("[data-toggle=modal]").click(function(){
+            var _contRef = $(this).html();
+            var type=$(this).data("type");
+            console.log(_contRef);
+        $('#myModalUpdater').find(".modal-body").find("#editTextArea").val(_contRef);
+        var item_id="<input type='hidden' name='"+type+"' id='hiddentypeid' />";  
+        console.log($('#myModalUpdater').find(".modal-body").find("#hiddentypeid").length);
+        if($('#myModalUpdater').find(".modal-body").find("#hiddentypeid").length <= 0 ){
+         $('#myModalUpdater').find(".modal-body").append(item_id); 
+        }
+        
+        $('#myModalUpdater').modal('show');
+
+
+})//method ends
+
+
+
+        var _updateCont = $(".updateContent");
+             _updateCont.on('click',function(){
+                
+                var content=$("#editTextArea").val();
+                
+                var updateToElementId=$("#hiddentypeid").attr("name");
+                $("#"+updateToElementId).html(content);
+                $('#myModalUpdater').modal('hide');  
+                //empty the html
+                $('#myModalUpdater').find(".modal-body").find("#editTextArea").val(" ");
+                $('#myModalUpdater').find(".modal-body").find("#hiddentypeid").remove();
+
+             })    
+         /*-------Edit Btn---------*/
+         $(document).on("click", ".editContent111", function() {
+            var targetid=$(this).data("targetid");
+            var _contRef = $("[data-type="+targetid+"]").html();   
+            console.log(_contRef);
+            var _lightBoxContainer = '<div class="containEditable" contenteditable="true">'+_contRef+'</div>';
+            
+            $('#myModalUpdater').find(".modal-body").append(_contRef);  
+               $('#myModalUpdater').modal('show');
+            var _updateCont = $(".updateContent");
+             _updateCont.on('click',function(){
+                var _editContain = $(".containEditable").text();
+                $("[data-type="+targetid+"]").html(_editContain);
+                $(".containEditable").remove()                              
+             })       
+         });
+
+
+
+//show color on hover
+// $('.inlineEdit').hover(function() {
+//         $(this).addClass('hover');
+//     }, function() {
+//         $(this).removeClass('hover');
+//     });
+
+//var replaceWith = $('<input name="temp" class="form-control" type="text" />'),
+    //connectWith = $('input[name="hiddenField"]');
+    //$('.inlineEdit').inlineEdit(replaceWith, connectWith);
+
+    //   $('.inlineEdit').click(function() {
+        
+    //     var elem = $(this);
+
+    //     elem.hide();
+    //     var name=$(this).data("name");
+    //     var type=$(this).data("type");
+    //     if (type=='description1'){
+    //      connectWith = $('input[name="'+type+'"]');
+    //     }else{
+    //      connectWith = $('input[name="'+type+'"]'); 
+    //     }
+        
+    //     var replaceWith = $('<input name="'+name+'" class="form-control" type="text" />');
+    //     console.log(replaceWith);
+    //     //replaceWith.attr('name', name);
+    //     elem.after(replaceWith);
+    //     replaceWith.focus();
+
+    //     replaceWith.blur(function() {
+
+    //         if ($(this).val() != "") {
+    //             connectWith.val($(this).val()).change();
+    //             elem.text($(this).val());
+    //         }
+
+    //         $(this).remove();
+    //         elem.show();
+    //     });
+    // });//method ends
+
+
 
 
 })//document ends
