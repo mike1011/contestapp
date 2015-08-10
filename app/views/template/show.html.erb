@@ -1,5 +1,9 @@
-      <a href="<%= generate_pdf_feedback_path(1,:format => 'pdf')%>"> Download PDF</a>
-      <%= render "#{@template_number}"%>
+      <div class="pull-left">
+      	<a href="<%= generate_pdf_feedback_path(1,:format => 'pdf')%>"> Download PDF</a>
+      </div>
+      <div class="col-md-7 col-md-offset-2 well">
+      	<%= render "#{@template_number}"%>
+      </div>
 
 
 

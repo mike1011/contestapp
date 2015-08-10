@@ -11,9 +11,21 @@
     margin-top: 20px;
 }
 
+.template_div .caption {
+    position: relative;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    font-weight: bolder;
+}
+.template_div .thumbnail > img:hover{
+    background: #222;
+    /*cursor: pointer;*/
+}
+
 </style>
 
-<div class="container">
+<div class="container template_div">
     <div class="row">
         <div class="text-center">
             <h1>Select your template</h1>
@@ -22,8 +34,11 @@
         <div class="row">
           <% ['one','two','three','four','five','six','seven','eight','nine','ten'].each_with_index do |num,index|%>
             <div class="col-md-4" style="margin-bottom: 15px;">
-                <div class="">
+                <div class="thumbnail">
                      <img src="http://www.prepbootstrap.com/Content/images/shared/houses/h8.jpg" class="img-responsive thumbnail img-radio">
+                         <div class="caption">
+                                    <p>Template <%= index%></p>
+                                </div>                     
                         <a href="<%= template_path(1,:template_number=>num)%>" class="btn btn-primary btn-radio">Select and Edit</a>
                         <input type="checkbox" id="Select-item" class="hidden">
                 </div>
