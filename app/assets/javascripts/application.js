@@ -16,6 +16,8 @@
 //= require bootstrap.min
 //= require bootstrap-select.min
 //= require bootstrap-editable
+//= require inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min
+//= require inputs-ext/wysihtml5/wysihtml5
 
 
 

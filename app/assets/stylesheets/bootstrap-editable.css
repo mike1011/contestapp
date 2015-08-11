@@ -143,7 +143,10 @@
 }
 
 .editable-pre-wrapped {
-   white-space: pre-wrap;
+  /*11aug2015-wednesday-edited to remove extra padding */
+   /*white-space: pre-wrap;*/
+   white-space: normal;
+
 }
 .editable-container.editable-popup {
     max-width: none !important; /* without this rule poshytip/tooltip does not stretch */
